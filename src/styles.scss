@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
+
+@import 'bootstrap.css';
+
+$custom-typography: mat-typography-config(
+    $font-family: 'Exo'
+);
+
+@include mat-core($custom-typography);
+
+
+body {
+  background-color: #f8f8f8;
+  margin: 0;
+  app-root * {
+    font-family: 'Exo', sans-serif;
+  };
+  min-height: 100vh !important;
+}
+
+.main-height{
+  min-height: calc(100vh - 70px);
+}

@@ -1,0 +1,44 @@
+.setting .item{
+    border-bottom: 1px solid #e5e8eb;
+    width: 100%;
+    padding: 1.5em 1.5em;
+    text-align:left;
+    font-weight:bold;
+}
+
+.setting .right{
+    padding: 3em 5em;
+
+}
+
+.right textarea{
+    min-height:100px;
+}
+.right button{
+    min-width:200px;
+}
+.right .hyperlink{
+    border:none;
+    color: rgb(21, 178, 229);
+    cursor: pointer
+}
+.right .form-notification{
+    border: 1px solid #e5e8eb;
+    border-radius:6px;
+}
+.right .notification-setting{
+    padding: 2em 2em 1em 2em;
+    display: flex;
+    border-bottom: 1px solid #e5e8eb;
+}
+.notification-setting .left-side{
+    display: block;
+    margin: 8px 28px 0px 0px;
+}
+.notification-setting .right-side{
+    display:block;
+}
+.notification-setting .left-side input{
+    height: 30px;
+    width: 30px;
+}

@@ -1,0 +1,210 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '@app/shared/services';
+import { TransferService } from '@app/services/transfer.service';
+import { FormGroup, FormControl, Validators, FormBuilder,} from '@angular/forms';
+
+@Component({
+  selector: 'app-setting',
+  templateUrl: './setting.component.html',
+  styleUrls: ['./setting.component.scss']
+})
+export class SettingComponent implements OnInit {
+  rememberMe = false;
+  current_user:any;
+  
+  exist = false;
+  beforeEmail :any;
+
+  address:any;
+  addressSlice:any;
+  hash:any;
+
+  metaUser = false;
+  
+  general = true;
+  generalForm : FormGroup;
+  fail = false;
+  success = false;
+
+  notification = false;
+  notificationForm : FormGroup;
+  notificationUpdate = false;
+
+  appearance = false;
+  appearanceForm : FormGroup;
+
+  constructor(private router: Router, private authService: AuthService, private transferService: TransferService, private fb: FormBuilder) { 
+    this.rememberMe = localStorage.getItem('rememberCurrentUser') == 'true' ? true : false;
+    if (!sessionStorage.getItem('_id')){
+      if (!sessionStorage.getItem('address')) this.router.navigate(["/auth/login"]).then(() => { window.location.reload();})
+    } else if (this.rememberMe == true) {
+        this.current_user = localStorage.getItem('currentUser')
+        this.current_user = JSON.parse(this.current_user)
+      if (!sessionStorage.getItem('address')){
+        this.router.navigate(["/auth/login"]).then(() => { window.location.reload();})  
+      }
+    } 
+    
+    if (sessionStorage.getItem('address')){
+      this.address = sessionStorage.getItem('address');
+      this.addressSlice = this.address.slice(0,8) + '...'+this.address.slice(32,42)
+      //this.hash = sessionStorage.getItem('hash');
+      this.metaUser = true;
+    } 
+
+    this.generalForm = this.fb.group({
+      username: new FormControl('', [Validators.required]),
+      bio: new FormControl(''),
+      email: new FormControl('', [Validators.required, Validators.email])
+    });  
+
+    this.notificationForm = this.fb.group({
+      item: new FormControl(''),
+      bid: new FormControl(''),
+      price: new FormControl(''),
+      auction: new FormControl(''),
+      outbid: new FormControl(''),
+      referral: new FormControl(''),
+      asset: new FormControl(''),
+      purchase: new FormControl(''),
+      newsletter: new FormControl(''),
+      ethvalue: new FormControl('', [Validators.required]),
+      exchange: new FormControl('')
+    });  
+
+    this.appearanceForm = new FormGroup({
+      theme : new FormControl(''),
+    });
+
+    
+  }
+
+  ngOnInit() {  
+    
+    this.beforeEmail = sessionStorage.getItem('email');
+    this.authService.userProfile(this.beforeEmail, this.address).subscribe((user) => { 
+      if (user == undefined || user == null ) {
+            
+      } else {
+        this.generalForm.patchValue({email: user.email});
+        this.generalForm.patchValue({bio:user.bio});
+        this.generalForm.patchValue({username: user.username});
+
+        this.notificationForm.patchValue({item: user.item});
+        this.notificationForm.patchValue({bid:user.bid});
+        this.notificationForm.patchValue({price: user.price});
+        this.notificationForm.patchValue({auction: user.auction});
+        this.notificationForm.patchValue({outbid:user.outbid});
+        this.notificationForm.patchValue({referral: user.referral});
+        this.notificationForm.patchValue({asset: user.asset});
+        this.notificationForm.patchValue({purchase:user.purchase});
+        this.notificationForm.patchValue({newsletter: user.newsletter});
+        this.notificationForm.patchValue({ethvalue: user.ethvalue});
+        this.notificationForm.patchValue({exchange: user.exchange});
+      }
+    })  
+    
+
+    
+
+    
+
+
+  }
+
+  // General page
+  get username() { return this.generalForm.get('username'); }
+  get email() { return this.generalForm.get('email'); }  
+  
+  // Notification page
+  get ethvalue() { return this.notificationForm.get('ethvalue'); }  
+  get exchange() { return this.notificationForm.get('ethvalue'); }  
+  
+  onGeneralSubmit(): void {
+    var { email, bio, username } = this.generalForm.getRawValue();
+    
+    this.authService.metaUserProfile(username, bio, email, this.address, this.hash, "1" ).subscribe((user) => { 
+      if (user == undefined || user == null ) {
+        this.fail=true;        
+      } else {
+        this.success = true;
+        //this.router.navigate(["/home"]).then(() => { window.location.reload();})
+      }
+    })
+
+
+  }
+
+  onNotificationSubmit(): void {
+    var { item, bid, price, auction, outbid, referral, asset, purchase, newsletter, ethvalue, exchange } = this.notificationForm.getRawValue()
+    item? item=1:item="";
+    bid? bid=1:bid="";
+    price? price=1:price="";
+    auction? auction=1:auction="";
+    outbid? outbid=1:outbid="";
+    referral? referral=1:referral="";
+    asset? asset=1:asset="";
+    purchase? purchase=1:purchase="";
+    newsletter? newsletter=1:newsletter="";  
+    exchange = ethvalue * 2775;
+    
+    this.authService.metaUserNotification(this.beforeEmail, this.address, item,bid,price,auction,outbid,referral,asset,purchase,newsletter,ethvalue,exchange ).subscribe((user) => { 
+      if (user == undefined || user ==null ) {
+            
+      } else {
+        this.notificationUpdate = true;
+      }
+    })
+
+
+  }
+
+  onAppearanceSubmit(): void {
+    var { theme} = this.appearanceForm.getRawValue();
+    
+/*
+    this.authService.general(username, bio, email, ).subscribe((user) => { 
+      if (user == undefined || user ==null ) {
+        this.fail=true;        
+      } else {
+        
+        //this.router.navigate(["/home"]).then(() => { window.location.reload();})
+      }
+    })
+*/
+
+  }
+
+  accountClick(): void {
+    this.router.navigate(["/setting"]).then(() => { window.location.reload();})
+  }
+
+  generalClick(): void {
+    this.general = true;
+    this.notification = false;
+    this.appearance = false;
+    
+  }
+
+  notificationClick(): void {
+    this.general = false;
+    this.notification = true;
+    this.appearance = false;
+
+  }
+
+  appearanceClick(): void {
+    this.general = false;
+    this.notification = false;
+    this.appearance = true;
+
+  }
+
+  async metamask(){
+    sessionStorage.getItem('address')?this.router.navigate(["/setting"]).then(() => { window.location.reload();}) : await this.transferService.connectETH();
+    //await this.transferService.connectETH();
+    
+  }
+
+}
