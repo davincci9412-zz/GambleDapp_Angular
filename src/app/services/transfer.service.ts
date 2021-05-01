@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare let window: any;
 
@@ -10,7 +11,7 @@ export class TransferService {
   chainID: any;
   address: any;
 
-  constructor() {
+  constructor(private router: Router) {
     
   }
 
@@ -26,15 +27,8 @@ export class TransferService {
             this.address = accounts[0];
             sessionStorage.setItem('address', this.address)
             sessionStorage.setItem('chainID', this.chainID)    
-            //this.signETH(this.address, this.chainID);
-            let message='Welcome to our site\n\n Click "Sign" to sign in. No password needed!\n\nI accept this Term of Service \n\nWallet address:\n '+ this.address;
-            let params =[this.address, message, this.chainID]    
-            await window.ethereum.request({method: 'personal_sign', params,}).then((result: any) => {
-              sessionStorage.setItem('hash', result)
-            })
-            .catch((error: any) => {
-              sessionStorage.setItem('hash', error)
-            });
+            this.signETH(this.address, this.chainID);
+            
           } 
         } else {
           alert("ETH connection failed. Please try it again")
@@ -51,7 +45,7 @@ export class TransferService {
       console.error(error);
     }
   };
-/*
+
   async signETH (address: any, chainID: any) {
 
     let message='Welcome to our site\n\n Click "Sign" to sign in. No password needed!\n\nI accept this Term of Service \n\nWallet address:\n '+ address;
@@ -65,6 +59,7 @@ export class TransferService {
       // The result varies by by RPC method.
       // For example, this method will return a transaction hash hexadecimal string on success.
       sessionStorage.setItem('hash', result)
+      this.router.navigate(["/setting"]).then(() => { window.location.reload();})
     })
     .catch((error: any) => {
       // If the request fails, the Promise will reject with an error.
@@ -76,5 +71,5 @@ export class TransferService {
   getInformation(signedAccount: any){
     
   }
-*/
+
 }
