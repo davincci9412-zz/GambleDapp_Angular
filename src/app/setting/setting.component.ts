@@ -21,6 +21,9 @@ export class SettingComponent implements OnInit {
   hash:any;
 
   metaUser = false;
+
+  account=false;
+  accountForm : FormGroup;
   
   general = true;
   generalForm : FormGroup;
@@ -52,6 +55,10 @@ export class SettingComponent implements OnInit {
       //this.hash = sessionStorage.getItem('hash');
       this.metaUser = true;
     } 
+
+    this.accountForm = this.fb.group({
+      walletAddress: new FormControl('')
+    });  
 
     this.generalForm = this.fb.group({
       username: new FormControl('', [Validators.required]),
@@ -87,6 +94,8 @@ export class SettingComponent implements OnInit {
       if (user == undefined || user == null ) {
             
       } else {
+        this.accountForm.patchValue({walletAccount:this.address})
+
         this.generalForm.patchValue({email: user.email});
         this.generalForm.patchValue({bio:user.bio});
         this.generalForm.patchValue({username: user.username});
@@ -121,6 +130,12 @@ export class SettingComponent implements OnInit {
   get ethvalue() { return this.notificationForm.get('ethvalue'); }  
   get exchange() { return this.notificationForm.get('ethvalue'); }  
   
+  onAccountSubmit(): void {
+    var { walletAddress } = this.generalForm.getRawValue();
+    
+
+  }
+
   onGeneralSubmit(): void {
     var { email, bio, username } = this.generalForm.getRawValue();
     
@@ -177,28 +192,31 @@ export class SettingComponent implements OnInit {
   }
 
   accountClick(): void {
-    this.router.navigate(["/setting"]).then(() => { window.location.reload();})
+    this.account = true;
+    this.general = false;
+    this.notification = false;
+    this.appearance = false;
   }
 
   generalClick(): void {
+    this.account = false;
     this.general = true;
     this.notification = false;
-    this.appearance = false;
-    
+    this.appearance = false;    
   }
 
   notificationClick(): void {
+    this.account = false;
     this.general = false;
     this.notification = true;
     this.appearance = false;
-
   }
 
   appearanceClick(): void {
+    this.account = false;
     this.general = false;
     this.notification = false;
     this.appearance = true;
-
   }
 
   async metamask(){
