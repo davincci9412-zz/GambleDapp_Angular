@@ -68,7 +68,7 @@ export class ForgotPasswordComponent implements OnInit {
               this.is_confirm_alert = true
 		          this.is_default = false;
             });
-            */
+          */
       }
     })
 /*

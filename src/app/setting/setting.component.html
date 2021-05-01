@@ -5,10 +5,8 @@
             <div class="item btn">
                 My Wallet
             </div>
-            <div class="item btn" (click)="accountClick()">
-                <div *ngIf="metaUser">{{addressSlice}}</div>
-                <div *ngIf="!metaUser">Log in with <a rel="nofollow" class="btn" (click)="metamask()"><img src="/assets/metamask-fox.svg" height="40"></a></div>
-            </div>
+            <div *ngIf="metaUser" class="item btn" (click)="accountClick()">{{addressSlice}}</div>
+            <div *ngIf="!metaUser" class="item btn">Log in with <a rel="nofollow" class="btn" (click)="metamask()"><img src="/assets/metamask-fox.svg" height="40"></a></div>
             <div class="item btn" (click)="generalClick()">
                 General
             </div>
