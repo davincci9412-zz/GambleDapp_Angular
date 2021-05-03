@@ -222,7 +222,7 @@ export class SettingComponent implements OnInit {
   async metamask(){
     sessionStorage.getItem('address')?this.router.navigate(["/setting"]).then(() => { window.location.reload();}) : await this.transferService.connectETH();
     //await this.transferService.connectETH();
-    
+
   }
 
 }
