@@ -11,9 +11,9 @@
       </div>
       <div class="form-group">
         <label>Fullname</label>
-        <input type="text"  formControlName="fullname" class="form-control" placeholder="Fullname" >
-        <div *ngIf="fullname.invalid && (fullname.dirty || fullname.touched)" class="p-2 text-danger">
-          <div *ngIf="fullname.errors.required">
+        <input type="text"  formControlName="username" class="form-control" placeholder="Fullname" >
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="p-2 text-danger">
+          <div *ngIf="username.errors.required">
             Fullname is required.
           </div>
         </div>
@@ -71,7 +71,7 @@
         <tr>
           <td>
             <mat-form-field>
-              <input matInput placeholder="Fullname" formControlName="fullname" name="fullname" required>
+              <input matInput placeholder="Fullname" formControlName="username" name="username" required>
             </mat-form-field>
           </td>
         </tr>

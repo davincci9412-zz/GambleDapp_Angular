@@ -1,5 +1,9 @@
-header {
+header 
+{
     width: 100%;
+	position:fixed;
+	z-index:100;
+	
     .logo {
       background-image: url('../../assets/logo.png');
       width: 50px;
@@ -33,5 +37,4 @@ header {
     a {
       cursor: pointer;
     }
-  }
- 
+}

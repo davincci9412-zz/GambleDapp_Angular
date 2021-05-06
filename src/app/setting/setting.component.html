@@ -1,6 +1,6 @@
 <div class="setting">
   <div class="row">
-    <div id="sidebarMenu" class="col-md-4 main-height left border-right">
+    <div id="sidebarMenu" class="col-md-3 main-height left border-right">
         <div class="row">
             <div class="item btn">
                 My Wallet
@@ -19,7 +19,7 @@
         </div>        
     </div>
     
-    <div class='col-md-8 main-height right'>
+    <div class='col-md-9 main-height right'>
         <div *ngIf="account" id="account" class="account">
             <form [formGroup]="accountForm" (ngSubmit) = "onAccountSubmit()" class="mt-2 mb-2">
                 <div class="form-group1 mb-3">

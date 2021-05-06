@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TransferService } from './transfer.service';
+import { MetamaskService } from './metamask.service';
 
-describe('TransferService', () => {
-  let service: TransferService;
+describe('MetamaskService', () => {
+  let service: MetamaskService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TransferService);
+    service = TestBed.inject(MetamaskService);
   });
 
   it('should be created', () => {

@@ -17,7 +17,7 @@ router.post('/forgot', forgot);
 router.post('/setting', setting);
 router.post('/metaUserProfile', metaUserProfile);
 router.post('/userProfile', userProfile);
-router.post('/metaUserNotification', metaUserNotification);
+//router.post('/metaUserNotification', metaUserNotification);
 
 router.get('/me', passport.authenticate('jwt', { session: false }), login);
 
@@ -49,7 +49,7 @@ function register(req, res) {
       var shasum = encrypt.createHash('sha1');
       shasum.update(req.body.password);
       var data = {
-        "fullname"      : req.body.fullname,
+        "username"      : req.body.username,
         "email"         : req.body.email,
         "password"      : shasum.digest('hex') 
       }
@@ -121,7 +121,7 @@ function setting(req, res) {
   });
 }
 
-// 
+/* 
 function metaUserProfile(req, res) {
   
   UserSchema.findOne({email : req.body.email}).exec(function(err,user){
@@ -169,6 +169,7 @@ function metaUserProfile(req, res) {
     }
   }); 
 }
+*/
 
 function userProfile(req, res) {
     if (req.body.address && req.body.email){
@@ -198,9 +199,13 @@ function userProfile(req, res) {
 	}
 }
 
-function metaUserNotification(req, res) {
+function metaUserProfile(req, res) {
   var data = {
-        "item"          : req.body.item,
+        "email"          : req.body.email,
+        "bio"          : req.body.bio,
+        "username"          : req.body.username,
+		"address"		:req.body.address,
+		"item"          : req.body.item,
         "bid"           : req.body.bid,
 		"price"      : req.body.price,
         "auction"      : req.body.auction,
@@ -212,46 +217,38 @@ function metaUserNotification(req, res) {
         "ethvalue"      : req.body.ethvalue,
 		"exchange"      : req.body.exchange
 	  }
-  UserSchema.findOne({email : req.body.email}).exec(function(err,user){
+  UserSchema.findOne({email : req.body.beforeEmail}).exec(function(err,user){
     if (user == null || user==undefined || user==""){  
 	  UserSchema.findOne({address : req.body.address}).exec(function(err,user){
 		if (user == null || user==undefined || user==""){  
-
+			UserSchema.create(data, function(err, user){
+				if (err){
+				  res.json({err, err});
+				} else {
+				  res.json({user,user}) ;
+				  console.log(user)
+				}
+			})
 		} else {
 			var query = {'address' : user.address}
-			console.log(222+user.address)
-			UserSchema.updateOne(query, data, function (err, doc){
+			//console.log(222+user.address)
+			UserSchema.updateOne(query, data, function (err, user){
 			if (err) {
 				res.json({err, err});
 			} else {
-				UserSchema.findOne({'_id' : user._id}, function (err, user){
-					if (err){
-					  res.json({err, err});
-					} else {
-					  res.json({user,user}) ;
-					  
-					}
-				})
+				res.json({user,user}) ;					  
 			}
 		  })
 		}
 	  })
     } else {
-		//
       var query = {'_id' : user._id}
-	  console.log(111+user._id)
-      UserSchema.updateOne(query, data, function (err, doc){
+	  //console.log(111+user._id)
+      UserSchema.updateOne(query, data, function (err, user){
 		if (err) {
 			res.json({err, err});
 		} else {
-			UserSchema.findOne({'_id' : user._id}, function (err, user){
-				if (err){
-				  res.json({err, err});
-				} else {
-				  res.json({user,user}) ;
-				  
-				}
-			})
+			res.json({user,user}) ;
 		}
 	  })
     }
