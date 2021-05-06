@@ -5,6 +5,9 @@
       <div *ngIf="metaUser" class="btn" data-toggle="modal" data-target="#myModal">{{addressSlice}}</div>
       <div *ngIf="!metaUser" class="btn" (click)="metamask()">Log in with <img src="/assets/metamask-fox.svg" height="40"></div>
     </div>
+    <div *ngIf="roles" class="item btn" (click)="adminClick()">
+      <img src="/assets/icons/horseback-riding.svg" height="15"> Admin
+    </div>
     <div class="item btn" (click)="dashboardClick()">
       <img src="/assets/icons/railcar.svg" height="15"> Dashboard
     </div>

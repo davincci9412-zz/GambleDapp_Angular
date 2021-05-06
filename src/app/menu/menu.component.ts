@@ -12,7 +12,7 @@ export class MenuComponent implements OnInit {
   address:any;
   addressSlice:any;
   hash:any;
-
+  roles:any;
   metaUser = false;
 
   constructor(private router: Router, private authService: AuthService, private Metamask: Metamask) {  
@@ -22,13 +22,16 @@ export class MenuComponent implements OnInit {
       //this.hash = sessionStorage.getItem('hash');
       this.metaUser = true;
     } 
-
+    this.roles = sessionStorage.getItem("roles");
   }
 
   ngOnInit(): void {
   
   }
 
+  adminClick():void{
+    this.router.navigateByUrl("/admin/admin-settle")
+  }
 
   dashboardClick():void{
     this.router.navigateByUrl("/")

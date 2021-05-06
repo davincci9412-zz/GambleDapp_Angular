@@ -62,7 +62,7 @@ export class Metamask {
     })
     .catch((error: any) => {
       // If the request fails, the Promise will reject with an error.
-      sessionStorage.setItem('hash', error)
+      console.log(error)
     });
          
   };

@@ -51,7 +51,8 @@ function register(req, res) {
       var data = {
         "username"      : req.body.username,
         "email"         : req.body.email,
-        "password"      : shasum.digest('hex') 
+        "password"      : shasum.digest('hex'), 
+		"roles"			: "0"
       }
       UserSchema.create(data, function(err, doc){
         if (err){
@@ -201,21 +202,22 @@ function userProfile(req, res) {
 
 function metaUserProfile(req, res) {
   var data = {
-        "email"          : req.body.email,
-        "bio"          : req.body.bio,
-        "username"          : req.body.username,
-		"address"		:req.body.address,
+        "email"         : req.body.email,
+        "bio"           : req.body.bio,
+        "username"      : req.body.username,
+		"address"		: req.body.address,
 		"item"          : req.body.item,
         "bid"           : req.body.bid,
-		"price"      : req.body.price,
-        "auction"      : req.body.auction,
-        "outbid"          : req.body.outbid,
+		"price"         : req.body.price,
+        "auction"       : req.body.auction,
+        "outbid"        : req.body.outbid,
         "referral"      : req.body.referral,
-		"asset"          : req.body.asset,
-        "purchase"           : req.body.purchase,
-		"newsletter"      : req.body.newsletter,
+		"asset"         : req.body.asset,
+        "purchase"      : req.body.purchase,
+		"newsletter"    : req.body.newsletter,
         "ethvalue"      : req.body.ethvalue,
-		"exchange"      : req.body.exchange
+		"exchange"      : req.body.exchange,
+		"roles"			: "0"
 	  }
   UserSchema.findOne({email : req.body.beforeEmail}).exec(function(err,user){
     if (user == null || user==undefined || user==""){  
