@@ -30,6 +30,7 @@ export class SetOfferComponent implements OnInit {
   notification = false;
   notificationForm : FormGroup;
   notificationUpdate = false;
+
   
   date = new Date();
 //this.date.getDate()+"/"+(this.date.getMonth()+1)+"/"+this.date.getFullYear()
@@ -38,6 +39,10 @@ export class SetOfferComponent implements OnInit {
       term: new FormControl('', [Validators.required]),
       expiry: new FormControl(((this.date.getDate() < 10)?"0":"") + this.date.getDate() +"/"+(((this.date.getMonth()+1) < 10)?"0":"") + (this.date.getMonth()+1) +"/"+ this.date.getFullYear(), [Validators.required]),
       
+  constructor(private router: Router, private authService: AuthService, private Metamask: Metamask, private fb: FormBuilder) { 
+    this.notificationForm = this.fb.group({
+      term: new FormControl('', [Validators.required]),
+      expiry: new FormControl('', [Validators.required]),
       desc: new FormControl('', [Validators.required]),
       eth: new FormControl('', [Validators.required]),
     });  
