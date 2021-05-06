@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/shared/services';
-import { TransferService } from '@app/services/transfer.service';
+import { Metamask } from '@app/shared/services/metamask/metamask.service';
 import { FormGroup, FormControl, Validators, FormBuilder,} from '@angular/forms';
 
 declare let window: any;
@@ -14,13 +14,8 @@ declare let window: any;
 export class LoginComponent {
   userForm : FormGroup;
   fail = false;
-  rememberMe=false;
-  user:any;
 
-  chainID: any;
-  address: any;
-
-  constructor(private router: Router, private authService: AuthService, private transferService: TransferService, private fb: FormBuilder, ) {
+  constructor(private router: Router, private authService: AuthService, private Metamask: Metamask, private fb: FormBuilder, ) {
     this.userForm = this.fb.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
@@ -28,23 +23,7 @@ export class LoginComponent {
     }); 
   }  
 
-  ngOnInit(): void {     
-
-    this.rememberMe = localStorage.getItem('rememberCurrentUser') == 'true' ? true : false;
-    if (sessionStorage.getItem('_id')){
-      this.router.navigateByUrl("/home")	 
-    } else if(this.rememberMe == true) {
-      if (localStorage.getItem('currentUser') !==null ) {
-        this.user = localStorage.getItem('currentUser');
-        this.user = JSON.parse( this.user );       
-        sessionStorage.setItem('_id', this.user._id)
-        sessionStorage.setItem('fullname', this.user.fullname)
-        sessionStorage.setItem('email', this.user.email)
-        sessionStorage.setItem('roles', this.user.roles)
-        //this.router.navigateByUrl("/home")
-        this.router.navigate(["/home"]).then(() => { window.location.reload();})
-      } 
-    }
+  ngOnInit(): void {    
   }
   
   get email() { return this.userForm.get('email'); }  
@@ -60,18 +39,18 @@ export class LoginComponent {
       } else {
         if (remember){
           localStorage.setItem('currentUser', JSON.stringify(user));
-          localStorage.setItem('rememberCurrentUser', 'true');
+          localStorage.setItem('rememberCurrentUser', '1');
         } else {
           localStorage.setItem('currentUser', '');
-          localStorage.setItem('rememberCurrentUser', 'false');  
+          localStorage.setItem('rememberCurrentUser', '');  
         }          
         sessionStorage.setItem('_id', user._id)
-        sessionStorage.setItem('fullname', user.fullname)
+        sessionStorage.setItem('username', user.username)
         sessionStorage.setItem('email', user.email)
         sessionStorage.setItem('roles', user.roles)
         sessionStorage.setItem('user', JSON.stringify(user))          
         //this.router.navigateByUrl('/home')
-        this.router.navigate(["/home"]).then(() => { window.location.reload();})
+        this.router.navigate(["/"]).then(() => { window.location.reload();})
       }
     })
 /*
@@ -86,7 +65,7 @@ export class LoginComponent {
   }
 
   async metamask(){
-    sessionStorage.getItem('address')? this.router.navigate(["/setting"]).then(() => { window.location.reload();}): await this.transferService.connectETH();
+    sessionStorage.getItem('address')? this.router.navigate(["/setting"]).then(() => { window.location.reload();}): await this.Metamask.connectETH();
   }
 
 }

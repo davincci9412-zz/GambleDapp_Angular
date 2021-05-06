@@ -1,0 +1,76 @@
+<div class='offers'>
+    <h3 class="mb-3">Filter your offers</h3>
+    <div class="row">
+        <div class="col-md-2 border-box">
+            <form [formGroup]="offersForm" (ngSubmit) = "onGeneralSubmit()" class="mt-4 mb-4">
+                <div class="form-group mb-5">
+                    <label>ETH amount</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Min</div>
+                        </div>
+                        <input type="text" class="form-control" id="min" formControlName="min" placeholder="0.00">
+                    </div>                    
+                    <div class="text-center"> ~ </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">Max</div>
+                        </div>
+                        <input type="text" class="form-control" id="max" formControlName="max" placeholder="1000">
+                    </div>
+                </div>
+                <div class="form-group mb-5">
+                    <label>Status</label>
+                    <select class="form-control" id="status" formControlName="status">
+                        <option value="open">Open</option>
+                        <option value="accept">Accept</option>
+                        <option value="settled">Settled</option>
+                        <option value="disputed">Disputed</option>
+                    </select>
+                </div>
+                
+                <div class="mb-5 btn-right">
+                    <button type="submit" class="btn btn-primary no-border-box btn-medium">Filter</button>
+                </div>                
+            </form>
+        </div>
+        <div class="col-md-10">
+            <div class="border-box">
+                <div class="section">
+                    <div class="row mb-4">
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer1</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer2</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer3</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer4</button></div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer1</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer2</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer3</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer4</button></div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer1</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer2</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer3</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer4</button></div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer1</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer2</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer3</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer4</button></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer1</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer2</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer3</button></div>
+                        <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer4</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+         
+</div>
+

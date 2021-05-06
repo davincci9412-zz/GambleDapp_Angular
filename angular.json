@@ -23,7 +23,11 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/jquery.min.js",
+              "src/assets/bootstrap.js",
+			  "src/assets/bootstrap-datepicker.js"
+            ]
           },
           "configurations": {
             "production": {

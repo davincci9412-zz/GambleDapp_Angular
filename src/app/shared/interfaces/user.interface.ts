@@ -13,7 +13,6 @@ export interface User {
   username: any;
   bio: any;
   _id: string;
-  fullname: string;
   email:string;
   password:string;
   createdAt: string;

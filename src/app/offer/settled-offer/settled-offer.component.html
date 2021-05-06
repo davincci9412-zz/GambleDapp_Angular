@@ -1,0 +1,47 @@
+<div class="join">
+    <div class="text-center mb-5 winner">
+        <h3>Winner was John adams</h3>                
+    </div>
+    <form [formGroup]="notificationForm" (ngSubmit) = "onNotificationSubmit()" class="mt-4 mb-4">
+        <div class="offer-row mb-4">          
+            <div class="col-md-5 border-box text-center">
+                <div class="nft">
+                    <h5 class="mb-4">John adams</h5>
+                    <p>ETH value: 10</p>
+                    <p class="mb-0">$27000</p>
+                </div>   
+            </div>
+            <div class="col-md-2 vs">
+                VS
+            </div>
+            <div class="col-md-5 border-box text-center">
+                <div class="nft">
+                    <h5 class="mb-4">Abraham Lincon</h5>
+                    <p>ETH value: 5</p>
+                    <p class="mb-0">$12000</p>
+                </div>   
+            </div>
+        </div>
+        <div class="border-box mb-4 text-center">
+                <h5 class="mb-4">English Premier league</h5>
+                <p>Machester : Liverpool</p>
+                <p class="mb-0">12-5-2021</p>
+        </div>  
+        <div class="border-box mb-4 text-center">
+            <div class="form-group ">
+                <h6 class="text-danger">Describe your reason that makes the contest</h6>
+                <textarea formControlName="desc" class="form-control" placeholder="" ></textarea> 
+                <div *ngIf="desc.invalid && (desc.dirty || desc.touched)" class="p-2 text-danger">
+                    <div *ngIf="desc.errors.required">
+                        This field is required.
+                    </div>
+                </div>               
+            </div>
+        </div>            
+        <div class="mb-4 btn-right">
+            <button type="submit" class="btn btn-primary no-border-box btn-medium" [disabled]="!notificationForm.valid">Contest</button>
+        </div>
+    </form> 
+</div>
+
+ 

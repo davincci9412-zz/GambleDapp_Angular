@@ -21,30 +21,12 @@ export class PasswordSettingComponent implements OnInit {
   userForm : FormGroup;
   is_confirm_alert = false;
   _id :any
-  rememberMe:any
-  user:any;
 
   constructor(private router: Router, private route: ActivatedRoute ,private authService: AuthService, private fb: FormBuilder) { 
     this.userForm = this.fb.group({
       password: new FormControl('', [Validators.required]),
       repeatPassword: new FormControl('', [Validators.required, this.passwordsMatchValidator])
-    });  
-
-    this.rememberMe = localStorage.getItem('rememberCurrentUser') == 'true' ? true : false;
-    if (sessionStorage.getItem('_id')){
-      this.router.navigateByUrl("/home")	 
-    } else if(this.rememberMe == true) {
-      if (localStorage.getItem('currentUser') !==null ) {
-        this.user = localStorage.getItem('currentUser');
-        this.user = JSON.parse( this.user );       
-        sessionStorage.setItem('_id', this.user._id)
-        sessionStorage.setItem('fullname', this.user.fullname)
-        sessionStorage.setItem('email', this.user.email)
-        sessionStorage.setItem('roles', this.user.roles)
-        this.router.navigateByUrl("/home")
-        //this.router.onSameUrlNavigation = 'reload'    
-      } 
-    }
+    });      
   }
 
   passwordsMatchValidator(control: FormControl): ValidationErrors | null {

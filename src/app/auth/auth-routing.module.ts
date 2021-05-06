@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/auth/login',
+        redirectTo: '/login',
         pathMatch: 'full',
       },
       {
@@ -27,7 +27,7 @@ const routes: Routes = [
         component: ForgotPasswordComponent,
       },
 	  {
-        path: 'setting/:id',
+        path: 'password-setting/:id',
         component: PasswordSettingComponent,
       }
     ],

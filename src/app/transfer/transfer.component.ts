@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {TransferService} from '../services/transfer.service';
+import { Metamask } from '@app/shared/services/metamask/metamask.service';
 
 @Component({
   selector: 'app-transfer',
   templateUrl: './transfer.component.html',
   styleUrls: ['./transfer.component.scss'],
-//  providers: [TransferService]
+//  providers: [Metamask]
 })
 export class TransferComponent implements OnInit {
 
@@ -63,7 +63,7 @@ export class TransferComponent implements OnInit {
 /*
   getAccountAndBalance = () => {
     const that = this;
-    this.transferService.getUserBalance().
+    this.Metamask.getUserBalance().
     then(function(retAccount: any) {
       that.user.address = retAccount.account;
       that.user.balance = retAccount.balance;
@@ -76,13 +76,12 @@ export class TransferComponent implements OnInit {
 */
   submitForm() {
     if (this.userForm.invalid) {
-      alert('transfer.components :: submitForm :: Form invalid');
       return;
     } else {
       console.log('transfer.components :: submitForm :: this.userForm.value');
       console.log(this.userForm.value);
       // TODO: service call
- /*     this.transferService.transferEther(this.userForm.value).
+ /*     this.Metamask.transferEther(this.userForm.value).
       then(function() {}).catch(function(error) {
         console.log(error);
       });*/
