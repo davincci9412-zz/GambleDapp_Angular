@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit {
       //this.hash = sessionStorage.getItem('hash');
       this.metaUser = true;
     } 
-    this.roles = sessionStorage.getItem("roles");
+    this.roles = sessionStorage.getItem("roles")=="1" ? true:false;
   }
 
   ngOnInit(): void {
