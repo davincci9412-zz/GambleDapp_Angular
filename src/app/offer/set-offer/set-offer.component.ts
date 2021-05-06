@@ -36,7 +36,12 @@ export class SetOfferComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService, private Metamask: Metamask, private fb: FormBuilder) { 
     this.notificationForm = this.fb.group({
       term: new FormControl('', [Validators.required]),
-      expiry: new FormControl(((this.date.getDate() < 10)?"0":"") + this.date.getDate() +"/"+(((this.date.getMonth()+1) < 10)?"0":"") + (this.date.getMonth()+1) +"/"+ this.date.getFullYear(), [Validators.required]),  
+      expiry: new FormControl(((this.date.getDate() < 10)?"0":"") + this.date.getDate() +"/"+(((this.date.getMonth()+1) < 10)?"0":"") + (this.date.getMonth()+1) +"/"+ this.date.getFullYear(), [Validators.required]),
+      
+      desc: new FormControl('', [Validators.required]),
+      eth: new FormControl('', [Validators.required]),
+    });  
+
   }
 
   ngOnInit() {  
