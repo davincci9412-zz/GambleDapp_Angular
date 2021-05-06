@@ -21,7 +21,7 @@ export class RegisterComponent {
 
   constructor(private router: Router, private authService: AuthService) {
     this.userForm = new FormGroup({
-      fullname: new FormControl('', [Validators.required]),
+      username: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
       repeatPassword: new FormControl('', [Validators.required, this.passwordsMatchValidator]),
@@ -41,8 +41,8 @@ export class RegisterComponent {
   ngOnInit(): void {    
   }
 
-  get fullname(): AbstractControl {
-    return this.userForm.get('fullname')!;
+  get username(): AbstractControl {
+    return this.userForm.get('username')!;
   }
 
   get email(): AbstractControl {
@@ -59,9 +59,9 @@ export class RegisterComponent {
 
   onSubmit(): void {
     
-    const { fullname, email, password } = this.userForm.getRawValue();
+    const { username, email, password } = this.userForm.getRawValue();
 
-    this.authService.register(fullname, email, password).subscribe(data => {
+    this.authService.register(username, email, password).subscribe(data => {
       
       if (data ==undefined || data ==null) { this.router.navigateByUrl('/auth/login') } else if(data.email == email) { this.emailDuplicate = true } 
     });

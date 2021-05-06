@@ -2,7 +2,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { SharedModule } from './shared/shared.module';
+import { SharedModule } from './shared/shared.module'; 
 
 import { AppComponent } from './app.component';
 import { AuthHeaderInterceptor } from './interceptors/header.interceptor';
@@ -13,15 +13,17 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { AuthService } from './shared/services';
 import { TransferComponent } from './transfer/transfer.component';
-import { SettingComponent } from './setting/setting.component';
+import { MenuComponent } from './menu/menu.component';
+import { AccountComponent } from './account/account.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function appInitializerFactory(authService: AuthService) {
   return () => authService.checkTheUserOnTheFirstLoad();
 }
 
 @NgModule({
-  imports: [BrowserAnimationsModule, HttpClientModule, SharedModule, AppRoutingModule],
-  declarations: [AppComponent, HeaderComponent, HomeComponent, TransferComponent, SettingComponent],
+  imports: [BrowserAnimationsModule, HttpClientModule, SharedModule,AppRoutingModule, NgbModule,],
+  declarations: [AppComponent, HeaderComponent, HomeComponent, TransferComponent, MenuComponent, AccountComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

@@ -39,7 +39,7 @@ export class ForgotPasswordComponent implements OnInit {
         this.user = localStorage.getItem('currentUser');
         this.user = JSON.parse( this.user );       
         sessionStorage.setItem('_id', this.user._id)
-        sessionStorage.setItem('fullname', this.user.fullname)
+        sessionStorage.setItem('username', this.user.username)
         sessionStorage.setItem('email', this.user.email)
         sessionStorage.setItem('roles', this.user.roles)
         this.router.navigateByUrl("/home")

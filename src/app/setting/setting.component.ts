@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/shared/services';
-import { TransferService } from '@app/services/transfer.service';
+import { Metamask } from '@app/shared/services/metamask/metamask.service';
 import { FormGroup, FormControl, Validators, FormBuilder,} from '@angular/forms';
 
 @Component({
@@ -37,18 +37,8 @@ export class SettingComponent implements OnInit {
   appearance = false;
   appearanceForm : FormGroup;
 
-  constructor(private router: Router, private authService: AuthService, private transferService: TransferService, private fb: FormBuilder) { 
-    this.rememberMe = localStorage.getItem('rememberCurrentUser') == 'true' ? true : false;
-    if (!sessionStorage.getItem('_id')){
-      if (!sessionStorage.getItem('address')) this.router.navigate(["/auth/login"]).then(() => { window.location.reload();})
-    } else if (this.rememberMe == true) {
-        this.current_user = localStorage.getItem('currentUser')
-        this.current_user = JSON.parse(this.current_user)
-      if (!sessionStorage.getItem('address')){
-        this.router.navigate(["/auth/login"]).then(() => { window.location.reload();})  
-      }
-    } 
-    
+  constructor(private router: Router, private authService: AuthService, private Metamask: Metamask, private fb: FormBuilder) { 
+        
     if (sessionStorage.getItem('address')){
       this.address = sessionStorage.getItem('address');
       this.addressSlice = this.address.slice(0,8) + '...'+this.address.slice(32,42)
@@ -112,13 +102,7 @@ export class SettingComponent implements OnInit {
         this.notificationForm.patchValue({ethvalue: user.ethvalue});
         this.notificationForm.patchValue({exchange: user.exchange});
       }
-    })  
-    
-
-    
-
-    
-
+    }) 
 
   }
 
@@ -138,7 +122,7 @@ export class SettingComponent implements OnInit {
 
   onGeneralSubmit(): void {
     var { email, bio, username } = this.generalForm.getRawValue();
-    
+    /*
     this.authService.metaUserProfile(username, bio, email, this.address, this.hash, "1" ).subscribe((user) => { 
       if (user == undefined || user == null ) {
         this.fail=true;        
@@ -147,6 +131,7 @@ export class SettingComponent implements OnInit {
         //this.router.navigate(["/home"]).then(() => { window.location.reload();})
       }
     })
+    */
 
 
   }
@@ -163,7 +148,7 @@ export class SettingComponent implements OnInit {
     purchase? purchase=1:purchase="";
     newsletter? newsletter=1:newsletter="";  
     exchange = ethvalue * 2775;
-    
+/*    
     this.authService.metaUserNotification(this.beforeEmail, this.address, item,bid,price,auction,outbid,referral,asset,purchase,newsletter,ethvalue,exchange ).subscribe((user) => { 
       if (user == undefined || user ==null ) {
             
@@ -171,25 +156,10 @@ export class SettingComponent implements OnInit {
         this.notificationUpdate = true;
       }
     })
-
-
-  }
-
-  onAppearanceSubmit(): void {
-    var { theme} = this.appearanceForm.getRawValue();
-    
-/*
-    this.authService.general(username, bio, email, ).subscribe((user) => { 
-      if (user == undefined || user ==null ) {
-        this.fail=true;        
-      } else {
-        
-        //this.router.navigate(["/home"]).then(() => { window.location.reload();})
-      }
-    })
 */
 
   }
+
 
   accountClick(): void {
     this.account = true;
@@ -220,8 +190,8 @@ export class SettingComponent implements OnInit {
   }
 
   async metamask(){
-    sessionStorage.getItem('address')?this.router.navigate(["/setting"]).then(() => { window.location.reload();}) : await this.transferService.connectETH();
-    //await this.transferService.connectETH();
+    sessionStorage.getItem('address')?this.router.navigate(["/setting"]).then(() => { window.location.reload();}) : await this.Metamask.connectETH();
+    //await this.Metamask.connectETH();
 
   }
 

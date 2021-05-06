@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { SettingComponent } from './setting/setting.component';
+import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/',
     pathMatch:'full'
   },
   {
@@ -17,8 +17,17 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
   },
-  { path: 'home', component: HomeComponent },
-  { path: 'setting', component: SettingComponent },
+  {
+    path: 'offer',
+    loadChildren: () => import('./offer/offer.module').then(m => m.OfferModule),
+  },
+  { path: '', component: HomeComponent },
+  { path: 'account', component: AccountComponent },
+  {
+    path: '**',
+    component: HomeComponent
+  }
+
 ];
 
 @NgModule({

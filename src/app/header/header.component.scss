@@ -1,5 +1,9 @@
-header {
+header 
+{
     width: 100%;
+	position:fixed;
+	z-index:100;
+	
     .logo {
       background-image: url('../../assets/logo.png');
       width: 50px;
@@ -28,10 +32,10 @@ header {
     }
     .mat-icon {
       vertical-align: middle;
-      margin: 0 5px;
+	  font-size: 35px; 
+	  height: 35px;
     }
     a {
       cursor: pointer;
     }
-  }
- 
+}

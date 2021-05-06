@@ -32,14 +32,14 @@ export class AuthService {
   }
 
   register(
-    fullname: string,
+    username: string,
     email: string,
     password: string,
     repeatPassword: string
   ): Observable<User> {
     return this.http
       .post<AuthResponse>('/api/auth/register', {
-        fullname,
+        username,
         email,
         password,
         repeatPassword,
@@ -111,12 +111,12 @@ export class AuthService {
     this.tokenStorage.signOut();
     this.setUser(null);
     sessionStorage.setItem('_id', '')
-    sessionStorage.setItem('fullname', '')
+    sessionStorage.setItem('username', '')
     sessionStorage.setItem('email', '')
     sessionStorage.setItem('roles', '')
     sessionStorage.setItem('user', '') 
     localStorage.setItem('currentUser', '');
-    localStorage.setItem('rememberCurrentUser', 'false');  
+    localStorage.setItem('rememberCurrentUser', '');  
     
     sessionStorage.setItem('address','');
     sessionStorage.setItem('chainID','');
@@ -125,10 +125,10 @@ export class AuthService {
     //this.router.navigateByUrl('/auth/login');
   }
 
-  register(fullname: string, email: string, password: string): Observable<User> {
+  register(username: string, email: string, password: string): Observable<User> {
     return this.http
       .post<AuthResponse>('/api/auth/register', {
-        fullname,
+        username,
         email,
         password
       })
@@ -165,26 +165,6 @@ export class AuthService {
       );
   }
 
-  metaUserProfile(username: string, bio: string, email: string, address:string, hash:string, signStatus:string): Observable<User> {
-    return this.http
-      .post<AuthResponse>('/api/auth/metaUserProfile', {
-        username,
-        bio,
-        email,
-        address,
-        hash,
-        signStatus
-      })
-      .pipe(
-        tap(({token, user }) => {
-          
-          //this.tokenStorage.saveToken(token);
-          this.setUser(user);
-        }),
-        pluck('user')
-      );
-  }
-
   userProfile(email: string, address:string): Observable<User> {
     return this.http
       .post<AuthResponse>('/api/auth/userProfile', {
@@ -192,7 +172,7 @@ export class AuthService {
         address,
       })
       .pipe(
-        tap(({token, user }) => {
+        tap(({token, user }) => {         
           
           //this.tokenStorage.saveToken(token);
           this.setUser(user);
@@ -201,11 +181,14 @@ export class AuthService {
       );
   }
 
-  metaUserNotification(email:string, address:string, item: string, bid: string, price: string, auction:string, outbid:string, referral:string, asset:string, purchase:string, newsletter:string, ethvalue:string, exchange:string): Observable<User> {
+  metaUserProfile(beforeEmail:string, address:string,email:string,bio:string, username:string, item: string, bid: string, price: string, auction:string, outbid:string, referral:string, asset:string, purchase:string, newsletter:string, ethvalue:string, exchange:string): Observable<User> {
     return this.http
-      .post<AuthResponse>('/api/auth/metaUserNotification', {
-        email,
+      .post<AuthResponse>('/api/auth/metaUserProfile', {
+        beforeEmail,
         address,
+        username,
+        bio,
+        email,
         item,
         bid,
         price,
@@ -223,6 +206,12 @@ export class AuthService {
           
           //this.tokenStorage.saveToken(token);
           this.setUser(user);
+          sessionStorage.setItem("_id", user._id);
+          sessionStorage.setItem('username', user.username)
+          sessionStorage.setItem('email', user.email)
+          sessionStorage.setItem('roles', user.roles)
+          sessionStorage.setItem('user', JSON.stringify(user))
+
         }),
         pluck('user')
       );

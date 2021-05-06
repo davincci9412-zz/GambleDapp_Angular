@@ -1,3 +1,38 @@
-<p>
-  home works!
-</p>
+<div class='dashboard'>
+    <div class="section mb-3">
+        <h5 class="mb-2">Your Offers</h5>
+        <div class="border-box mb-3">
+            <div class="row">
+                <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer1</button></div>
+                <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer2</button></div>
+                <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer3</button></div>
+                <div class="col-md-3" ><button class="offer-btn btn" (click)="offerClick()">Offer4</button></div>
+            </div>
+        </div>
+        <div class="btn-right"><button class="btn btn-primary btn-medium"  (click)="myClick()">See all</button></div>
+    </div>
+    <div class="section mb-5">    
+        <h5 class="mb-2">Settled</h5>
+        <div class="border-box">
+            <div class="row">
+                <div class="col-md-3" ><button class="offer-btn btn" (click)="settleClick()">Offer1</button></div>
+                <div class="col-md-3" ><button class="offer-btn btn" (click)="settleClick()">Offer2</button></div>
+                <div class="col-md-3" ><button class="offer-btn btn" (click)="settleClick()">Offer3</button></div>
+                <div class="col-md-3" ><button class="offer-btn btn" (click)="settleClick()">Offer4</button></div>
+            </div>
+        </div>
+    </div>
+    <div class="section mb-4">    
+        <h5 class="mb-2">Latest Market Offers</h5>
+        <div class="border-box mb-3">
+            <div class="row">
+                <div class="col-md-3" ><button class="offer-btn btn" (click)="joinClick()">Offer1</button></div>
+                <div class="col-md-3" ><button class="offer-btn btn" (click)="joinClick()">Offer2</button></div>
+                <div class="col-md-3" ><button class="offer-btn btn" (click)="joinClick()">Offer3</button></div>
+                <div class="col-md-3" ><button class="offer-btn btn" (click)="joinClick()">Offer4</button></div>
+            </div>
+        </div>
+        <div class="btn-right" ><button class="btn btn-primary btn-medium" (click)="marketClick()">See all on market</button></div>
+    </div>         
+</div>
+

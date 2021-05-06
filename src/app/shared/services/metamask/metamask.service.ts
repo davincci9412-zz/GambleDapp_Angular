@@ -6,7 +6,7 @@ declare let window: any;
 @Injectable({
   providedIn: 'root'
 })
-export class TransferService {
+export class Metamask {
   
   chainID: any;
   address: any;
@@ -31,7 +31,6 @@ export class TransferService {
             
           } 
         } else {
-          alert("ETH connection failed. Please try it again")
           /*
           interface ConnectInfo {
             chainId: string;
@@ -63,7 +62,7 @@ export class TransferService {
     })
     .catch((error: any) => {
       // If the request fails, the Promise will reject with an error.
-      sessionStorage.setItem('hash', error)
+      console.log(error)
     });
          
   };
