@@ -25,31 +25,31 @@ body {
 .wrapper-app{
 	position:relative;
 	top:65px;
-
 }
+
 .menu-back{
     position: fixed;
     top: 0;
     bottom: -120px;
     z-index: 1;
     background: #fff;
-    width: 160px;
+    width: 240px;
 	border-right: 1px solid #e5e8eb;
     box-shadow: 3px 0px 10px rgb(120 130 140 / 33%);
 }
 .menu-item{
 	position:fixed;
-	width:160px;
+	width:240px;
 	z-index:100;
 	background:#FFF;
-    width: 159px;
+    width: 239px;
 	top:65px;
 }
 
 .menu .item{
 	width: 100%;
     text-align: left;
-    padding: 1.5em 0 1.5em 1em;
+    padding: 1.5em 0 1.5em 1.5em;
     font-weight: bold;
 	border-bottom: 1px solid #e5e8eb;
 }
@@ -59,168 +59,14 @@ body {
     color: #9068be;
 }
 .menu .item .btn{
-	padding:0.375em 0 0;
+	padding:0.375em 0 0 0.75em;
+}
+.menu .item img{
+    margin-right:5px;
 }
 
 .main{
-	margin-left:160px;
-	height:100%;
-	width:100%;
-	padding:3% 2%;
-}
-
-.btn-right{
-	display:flex;
-	justify-content:flex-end;
-}
-
-.btn-between{
-	display: flex;
-    justify-content: space-between;
-}
-
-.btn-left{
-	display:flex;
-	justify-content:flex-start;
-}
-
-.btn-small{
-	min-width:100px;
-}
-
-.btn-medium{
-	min-width:140px;
-}
-
-.btn-large{
-	min-width:180px;
-}
-
-.btn-red{
-	background-color:#f00;
-	font-weight:bold;
-}
-
-.btn-medium-max{
-	max-width:140px
-}
-
-.mdi-calendar-check {
-    position: relative;
-    top: 1px;
-    display: inline-block;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.offer-btn{
-	width:100%;
-	border: 1px solid #b5b8bb;
-    padding: 1.5em;
-    background: #e9ecef;
-	box-shadow: 3px 0px 10px rgb(120 130 140 / 50%);
-}
-
-.border-box{
-	border: 1px solid #d5d8db;
-    padding: 2em;
-	border-radius: 0.25em;
-	background:#FFF;
-	box-shadow: 3px 0px 10px rgb(120 130 140 / 20%);
-}
-
-
-.offers .col-md-2{
-	padding:2em 0.7em
-}
-
-.offers .col-md-10{
-	padding-right:0em
-}
-
-.no-border-box.btn-primary{
-	padding: 0.375rem 0.75rem !important;
-	border:none !important;
-	background:#007bff !important;
-}
-.offers .text-center{
-	transform: rotate(-90deg);
-    font-weight: bold;
-    font-size: 40px;
-    line-height: 0.6em;
-    padding-top: 15px;
-}
-
-.form-notification{
-    border: 1px solid #d5d8db;
-    border-radius:6px;
-	background:#f5f8fb;
-	box-shadow: 3px 0px 10px rgb(120 130 140 / 10%);
-}
-.notification-setting{
-    padding: 1.5em 1.5em 0.2em 1.5em;
-    display: flex;
-    border-bottom: 1px solid #e5e8eb;
-}
-.notification-setting .left-side{
-    display: block;
-    margin: 8px 28px 0px 0px;
-}
-.notification-setting .right-side{
-    display:block;
-}
-.notification-setting .left-side input{
-    height: 30px;
-    width: 30px;
-}
-
-.form-threshold{
-    max-width:400px;
-}
-
-.menu-back{
-    position: fixed;
-    top: 0;
-    bottom: -120px;
-    z-index: 1;
-    background: #fff;
-    width: 160px;
-	border-right: 1px solid #e5e8eb;
-    box-shadow: 3px 0px 10px rgb(120 130 140 / 33%);
-}
-.menu-item{
-	position:fixed;
-	width:160px;
-	z-index:100;
-	background:#FFF;
-    width: 159px;
-	top:65px;
-}
-
-.menu .item{
-	width: 100%;
-    text-align: left;
-    padding: 1.5em 0 1.5em 1em;
-    font-weight: bold;
-	border-bottom: 1px solid #e5e8eb;
-}
-
-.menu .item:active, .menu .item:focus{
-	background: #f9f7fb;
-    color: #9068be;
-}
-.menu .item .btn{
-
-	padding:0.375em 0 0;
-
-}
-
-.main{
-	margin-left:160px;
+	margin-left:240px;
 	height:100%;
 	width:100%;
 	padding:3% 2%;
