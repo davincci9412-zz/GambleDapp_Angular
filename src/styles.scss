@@ -25,7 +25,10 @@ body {
 .wrapper-app{
 	position:relative;
 	top:65px;
+}
 
+.wrapper-app textarea{
+    min-height:6em;
 }
 
 .menu-back{
