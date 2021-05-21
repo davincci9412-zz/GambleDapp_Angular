@@ -14,7 +14,7 @@ export class SettingComponent implements OnInit {
   current_user:any;
   
   exist = false;
-  beforeEmail :any;
+  _id :any;
 
   address:any;
   addressSlice:any;
@@ -79,8 +79,8 @@ export class SettingComponent implements OnInit {
 
   ngOnInit() {  
     
-    this.beforeEmail = sessionStorage.getItem('email');
-    this.authService.userProfile(this.beforeEmail, this.address).subscribe((user) => { 
+    this._id = sessionStorage.getItem('_id');
+    this.authService.userProfile(this._id).subscribe((user) => { 
       if (user == undefined || user == null ) {
             
       } else {

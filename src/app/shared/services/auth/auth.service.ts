@@ -101,7 +101,14 @@ export class AuthService {
         tap(({ token , user}) => {
           
           //this.tokenStorage.saveToken(token);          
-          this.setUser(user);
+          this.setUser(user);         
+          sessionStorage.setItem('_id', user._id)
+          sessionStorage.setItem('username', user.username)
+          sessionStorage.setItem('email', user.email)
+          sessionStorage.setItem('address', user.address)
+          sessionStorage.setItem('chainId', user.chainId)
+          sessionStorage.setItem('roles', user.roles)
+          sessionStorage.setItem('user', JSON.stringify(user))       
         }),
         pluck('user')
       );
@@ -134,7 +141,7 @@ export class AuthService {
       })
       .pipe(
         tap(({token, user }) => {
-          //this.tokenStorage.saveToken(token);
+          this.setUser(user);
         }),
         pluck('user')
       );
@@ -165,11 +172,10 @@ export class AuthService {
       );
   }
 
-  userProfile(email: string, address:string): Observable<User> {
+  userProfile(_id:string): Observable<User> {
     return this.http
       .post<AuthResponse>('/api/auth/userProfile', {
-        email,
-        address,
+        _id,
       })
       .pipe(
         tap(({token, user }) => {         
@@ -181,7 +187,23 @@ export class AuthService {
       );
   }
 
-  metaUserProfile(beforeEmail:string, address:string,email:string,bio:string, username:string, item: string, bid: string, price: string, auction:string, outbid:string, referral:string, asset:string, purchase:string, newsletter:string, ethvalue:string, exchange:string): Observable<User> {
+  registerMetamask(address: string, chainId: string): Observable<User> {
+    return this.http
+      .post<AuthResponse>('/api/auth/registerMetamask', {
+        address,
+        chainId
+      })
+      .pipe(
+        tap(({token, user }) => {
+          //sessionStorage.setItem("chainId", user.chainId);
+          this.setUser(user);
+          
+        }),
+        pluck('user')
+      );
+  }
+
+  metaUserProfile(beforeEmail:string,address:string,email:string,bio:string, username:string, item: string, bid: string, price: string, auction:string, outbid:string, referral:string, asset:string, purchase:string, newsletter:string, ethvalue:string, exchange:string): Observable<User> {
     return this.http
       .post<AuthResponse>('/api/auth/metaUserProfile', {
         beforeEmail,
@@ -203,15 +225,19 @@ export class AuthService {
       })
       .pipe(
         tap(({token, user }) => {
-          
-          //this.tokenStorage.saveToken(token);
-          this.setUser(user);
-          sessionStorage.setItem("_id", user._id);
-          sessionStorage.setItem('username', user.username)
-          sessionStorage.setItem('email', user.email)
-          sessionStorage.setItem('roles', user.roles)
-          sessionStorage.setItem('user', JSON.stringify(user))
-
+          if (user.user== "222" || user==undefined || user==null){
+            
+          } else {
+            //this.tokenStorage.saveToken(token);
+            this.setUser(user);
+            sessionStorage.setItem("_id", user._id);
+            sessionStorage.setItem('username', user.username)
+            sessionStorage.setItem('email', user.email)
+            sessionStorage.setItem('roles', user.roles)
+            sessionStorage.setItem('address', user.address)
+            sessionStorage.setItem('chainId', user.chainId)    
+            sessionStorage.setItem('user', JSON.stringify(user))
+          }          
         }),
         pluck('user')
       );

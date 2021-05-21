@@ -43,12 +43,7 @@ export class LoginComponent {
         } else {
           localStorage.setItem('currentUser', '');
           localStorage.setItem('rememberCurrentUser', '');  
-        }          
-        sessionStorage.setItem('_id', user._id)
-        sessionStorage.setItem('username', user.username)
-        sessionStorage.setItem('email', user.email)
-        sessionStorage.setItem('roles', user.roles)
-        sessionStorage.setItem('user', JSON.stringify(user))          
+        }    
         //this.router.navigateByUrl('/home')
         this.router.navigate(["/"]).then(() => { window.location.reload();})
       }

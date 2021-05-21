@@ -16,12 +16,13 @@ export class MenuComponent implements OnInit {
   metaUser = false;
 
   constructor(private router: Router, private authService: AuthService, private Metamask: Metamask) {  
-    if (sessionStorage.getItem('address')){
+    if ( sessionStorage.getItem('address') == "undefined" || sessionStorage.getItem('address') == null ){   
+
+    } else {
       this.address = sessionStorage.getItem('address');
       this.addressSlice = this.address.slice(0,6) + '...'+this.address.slice(36,42)
-      //this.hash = sessionStorage.getItem('hash');
       this.metaUser = true;
-    } 
+    }
     this.roles = sessionStorage.getItem("roles")=="1" ? true:false;
   }
 
@@ -30,7 +31,7 @@ export class MenuComponent implements OnInit {
   }
 
   adminClick():void{
-    this.router.navigateByUrl("/admin/admin-settle")
+    this.router.navigateByUrl("/admin/admin-settles")
   }
 
   dashboardClick():void{
@@ -56,9 +57,7 @@ export class MenuComponent implements OnInit {
   }
 
   async metamask(){
-    sessionStorage.getItem('address')?this.router.navigate(["/setting"]).then(() => { window.location.reload();}) : await this.Metamask.connectETH();
-    //await this.Metamask.connectETH();
-
+    await this.Metamask.connectETH();
   }
 
 }

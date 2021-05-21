@@ -1,14 +1,14 @@
 <div class="join">
     <div class="text-center mb-5 winner">
-        <h3>Winner was John adams</h3>                
+        <h3>Winner was {{winner_name}}</h3>                
     </div>
     <form [formGroup]="notificationForm" (ngSubmit) = "onNotificationSubmit()" class="mt-4 mb-4">
         <div class="offer-row mb-4">          
             <div class="col-md-5 border-box text-center">
                 <div class="nft">
-                    <h5 class="mb-4">John adams</h5>
-                    <p>ETH value: 10</p>
-                    <p class="mb-0">$27000</p>
+                    <h4 class="mb-4">{{creator_name}}</h4>
+                    <p>ETH value: {{creator_eth}}</p>
+                    <p class="mb-0">${{creator_usd}}</p>
                 </div>   
             </div>
             <div class="col-md-2 vs">
@@ -16,39 +16,26 @@
             </div>
             <div class="col-md-5 border-box text-center">
                 <div class="nft">
-                    <h5 class="mb-4">Abraham Lincon</h5>
-                    <p>ETH value: 5</p>
-                    <p class="mb-0">$12000</p>
+                    <h4 class="mb-4">{{opponent_name}}</h4>
+                    <p>ETH value: {{opponent_eth}}</p>
+                    <p class="mb-0">${{opponent_usd}}</p>
                 </div>   
             </div>
         </div>
-        <div class="border-box mb-4 text-center">
-                <h5 class="mb-4">English Premier league</h5>
-                <p>Machester : Liverpool</p>
-                <p class="mb-0">12-5-2021</p>
-        </div>                   
+        <div class="border-box mb-5 text-center">
+            <h4 class="mb-4">{{term}}</h4>
+            <p>Machester : Liverpool</p>
+            <p class="mb-0">{{date}}</p>
+        </div> 
+        <div class="border-box mb-4 text-danger">
+            <h4 class="mb-4 text-center">Contest Description</h4>
+            <div class="border-box">{{desc}}</div>
+        </div>                  
         <div class="btn-between">
-            <button type="submit" class="btn btn-primary no-border-box btn-large" >John adams won</button>
-            <button type="submit" class="btn btn-primary no-border-box btn-large" >Abraham Lincon won</button>
+            <button type="button" class="btn btn-primary no-border-box btn-large" (click)="win(1)" >{{creator_name}} won</button>
+            <button type="button" class="btn btn-primary no-border-box btn-large" (click)="win(2)" >{{opponent_name}} won</button>
         </div>
     </form> 
-</div>
-<div class="modal fade" id="walletModal" tabindex="-1" role="dialog" aria-labelledby="walletModalLabel" >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="walletModalLabel">Log out</h4>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        </div>
-        <div class="modal-body">
-          Are you going to log out?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-          <a routerLink="/logout" class="nav-link" type="button" class="btn btn-primary" data-dismiss="modal">Yes</a>
-        </div>
-      </div>
-    </div>
 </div>
 
  
