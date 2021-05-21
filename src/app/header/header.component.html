@@ -3,7 +3,9 @@
 <!--<a routerLink="/" class="logo"></a>-->    
     <a routerLink="/"><img src="/assets/icons/boat.svg" height="40"></a>
     <span class="example-spacer"></span>
+
     <button *ngIf="_id" mat-button routerLink="/offer/set-offer" class="btn btn-primary">Create offer</button>      
+
     <div>      
       <a class="links side" routerLink="/auth/login" *ngIf="!_id">Login</a>
       <a class="links side" *ngIf="_id" routerLink="/account">
