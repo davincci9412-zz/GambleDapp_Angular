@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, Metamask, OfferService } from '@app/shared/services';
 import { FormGroup, FormControl, Validators, FormBuilder,} from '@angular/forms';
-import { async } from 'rxjs';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
