@@ -3,20 +3,26 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AdminComponent } from './admin.component';
 import { AdminSettleComponent } from './admin-settle/admin-settle.component';
+import { AdminSettlesComponent } from './admin-settles/admin-settles.component';
 import { OnlyAdminUsersGuard } from './admin-user-guard';
 
 const routes: Routes = [{
   path: '',
 //  canActivate: [OnlyAdminUsersGuard],
   children: [
-  {
-    path: '',
-    component: AdminComponent,
-  },
-  {
-    path: 'admin-settle',
-    component: AdminSettleComponent,
-  },]
+	  {
+		path: '',
+		component: AdminComponent,
+	  },
+	  {
+		path: 'admin-settle/:id',
+		component: AdminSettleComponent,
+	  },
+	  {
+		path: 'admin-settles',
+		component: AdminSettlesComponent,
+	  },
+  ]
 }];
 /*
 @NgModule({

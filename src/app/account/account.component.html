@@ -7,11 +7,11 @@
             <div class="form-group mb-4">
                 <h6>Email Address</h6>
                 <input type="email" id="email" formControlName="email" class="form-control" placeholder="Email" required>
-                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="p-2 text-danger">
-                    <div *ngIf="email.errors.required">
+                <div *ngIf="email!.invalid && (email!.dirty || email!.touched)" class="p-2 text-danger">
+                    <div *ngIf="email!.errors!.required">
                         This field is required.
                     </div>
-                    <div *ngIf="email.errors.email">
+                    <div *ngIf="email!.errors!.email">
                         Enter a valid email
                     </div>
                 </div>
@@ -23,8 +23,8 @@
             <div class="form-group mb-5">
                 <h6>Username</h6>
                 <input type="text"  formControlName="username" class="form-control" placeholder="Username" >
-                <div *ngIf="username.invalid && (username.dirty || username.touched)" class="p-2 text-danger">
-                    <div *ngIf="username.errors.required">
+                <div *ngIf="username!.invalid && (username!.dirty || username!.touched)" class="p-2 text-danger">
+                    <div *ngIf="username!.errors!.required">
                         This field is required.
                     </div>
                 </div>
@@ -119,27 +119,15 @@
                         <div class="input-group form-threshold">
                             <div class="form-control text-center">ETH</div>
                             <input type="text" id="ethvalue" formControlName="ethvalue" class="form-control btn-small" placeholder="e.g. 0.005">   
-                            <input type="text" id="exchange" formControlName="exchange" class="form-control btn-small" placeholder="$0" value ="{{ethvalue.value * 2775}}" readonly>        
+                            <input type="text" id="exchange" formControlName="exchange" class="form-control btn-small" placeholder="$0" value ="{{ethvalue!.value * 2775}}" readonly>        
                         </div> 
                         
                     </div>                                   
                 </div> 
-            </div>
-                     
+            </div>                     
             <div class="mb-5 btn-right">
                 <button type="submit" class="btn btn-primary no-border-box btn-medium" [disabled]="!notificationForm.valid">Save</button>
-            </div>form-group
-            <div class="">
-                <div *ngIf="success" class="p-2 text-danger">
-                    Saved successfully.
-                </div>
-            </div>
-            <div class="form-group">
-                <div *ngIf="fail" class="p-2 text-danger">
-                    Email address is duplicated. Please try it again.
-                </div>
-            </div>
-            
+            </div>            
         </form> 
     </div>
   </div>

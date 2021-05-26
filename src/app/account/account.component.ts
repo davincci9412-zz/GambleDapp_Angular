@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '@app/shared/services';
 import { Metamask } from '@app/shared/services/metamask/metamask.service';
 import { FormGroup, FormControl, Validators, FormBuilder,} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-account',
@@ -11,18 +12,11 @@ import { FormGroup, FormControl, Validators, FormBuilder,} from '@angular/forms'
 })
 export class AccountComponent implements OnInit {
 
-  rememberMe = false;
-  current_user:any;
-
-  fail=false;
-  success=false;
-  
-  exist = false;
-  beforeEmail :any;
-
   address:any;
   addressSlice:any;
   hash:any;
+  _id:any;
+  beforeEmail:any;
 
   metaUser = false;
 
@@ -30,7 +24,7 @@ export class AccountComponent implements OnInit {
   notificationForm : FormGroup;
   notificationUpdate = false;
 
-  constructor(private router: Router, private authService: AuthService, private Metamask: Metamask, private fb: FormBuilder) { 
+  constructor(private router: Router, private authService: AuthService, private Metamask: Metamask, private fb: FormBuilder, private _snackBar: MatSnackBar) { 
     if (sessionStorage.getItem('address')){
       this.address = sessionStorage.getItem('address');
       this.addressSlice = this.address.slice(0,8) + '...'+this.address.slice(32,42)
@@ -59,10 +53,11 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {  
     
+    this._id = sessionStorage.getItem('_id');
     this.beforeEmail = sessionStorage.getItem('email');
-    this.address = sessionStorage.getItem('address');
+    
 
-    this.authService.userProfile(this.beforeEmail, this.address).subscribe((user) => { 
+    this.authService.userProfile(this._id).subscribe((user) => { 
       if (user == undefined || user == null ) {
             
       } else {
@@ -105,11 +100,12 @@ export class AccountComponent implements OnInit {
     newsletter? newsletter=1:newsletter="";  
     //exchange = ethvalue * 2775;
     
-    this.authService.metaUserProfile(this.beforeEmail, this.address,email,bio,username,item,bid,price,auction,outbid,referral,asset,purchase,newsletter,ethvalue,exchange ).subscribe((user) => { 
-      if (user == undefined || user ==null ) {
-        this.fail=true;        
+    this.authService.metaUserProfile(this.beforeEmail,this.address,email,bio,username,item,bid,price,auction,outbid,referral,asset,purchase,newsletter,ethvalue,exchange ).subscribe((user) => { 
+      if (user == undefined || user ==null || user.user=="222") {
+        if (user.user == "222") this._snackBar.open('Email address is duplicated. Please try it again.', 'Close');    
+        if (user.user == "111") this._snackBar.open('Address is duplicated. Please try it again.', 'Close');    
       } else {
-        this.success = true;
+        this._snackBar.open('Saved successfully.', 'Close'); 
         //this.router.navigate(["/home"]).then(() => { window.location.reload();})
       }
     })
