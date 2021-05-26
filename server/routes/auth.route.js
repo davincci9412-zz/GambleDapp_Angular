@@ -1,50 +1,29 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler')
 const passport = require('passport');
-const userCtrl = require('../controllers/user.controller');
-const authCtrl = require('../controllers/auth.controller');
 const config = require('../config/config');
 const encrypt = require('crypto');
 
 const router = express.Router();
 module.exports = router;
 
-//router.post('/register', asyncHandler(register), login);
-//router.post('/login', passport.authenticate('local', { session: false }), login);
+
 router.post('/register', register);
 router.post('/login', login);
 router.post('/forgot', forgot);
 router.post('/setting', setting);
-router.post('/metaUserProfile', metaUserProfile);
 router.post('/userProfile', userProfile);
-//router.post('/metaUserNotification', metaUserNotification);
+router.post('/registerMetamask', registerMetamask);
+router.post('/metaUserProfile', metaUserProfile);
 
 router.get('/me', passport.authenticate('jwt', { session: false }), login);
 
-var UserSchema = require('../models/user.model.js') 
+var db = require('../models/model.js') 
 var shasum = encrypt.createHash('sha1');
 
-/*
-
-async function register(req, res, next) {
-	
-  let user = await userCtrl.insert(req.body);
-  user = user.toObject();
-  delete user.hashedPassword;
-  req.user = user;
-  next()
-  
-}
-
-function login(req, res) {
-  let user = req.user;
-  let token = authCtrl.generateToken(user);
-  res.json({ user, token });
-}
-*/
 function register(req, res) {
   
-  UserSchema.findOne({email : req.body.email}).exec(function(err,user){
+  db.User.findOne({email : req.body.email}).exec(function(err,user){
     if (user == null || user==undefined || user==""){
       var shasum = encrypt.createHash('sha1');
       shasum.update(req.body.password);
@@ -52,9 +31,8 @@ function register(req, res) {
         "username"      : req.body.username,
         "email"         : req.body.email,
         "password"      : shasum.digest('hex'), 
-		"roles"			: "0"
       }
-      UserSchema.create(data, function(err, doc){
+      db.User.create(data, function(err, doc){
         if (err){
           res.json({err, err});
         } else {
@@ -70,7 +48,7 @@ function register(req, res) {
 
 function login(req, res) {
 /*  
-  const result = await UserSchema.find({email : req.body.email, password:bcrypt.hashSync(req.body.password, 10)}, function (err, doc){
+  const result = await db.User.find({email : req.body.email, password:bcrypt.hashSync(req.body.password, 10)}, function (err, doc){
     if (err) {
       res.send(err);      
     } else {
@@ -80,7 +58,7 @@ function login(req, res) {
 */ 
   var shasum = encrypt.createHash('sha1');
   shasum.update(req.body.password);
-  UserSchema.findOne({email : req.body.email, password:shasum.digest('hex') }).exec(function(err,user){
+  db.User.findOne({email : req.body.email, password:shasum.digest('hex') }).exec(function(err,user){
     if (err){
       res.json({err, err});
     } else {
@@ -91,7 +69,7 @@ function login(req, res) {
 }
 
 function forgot(req, res) {
-  UserSchema.findOne({email : req.body.email}).exec(function(err,user){
+  db.User.findOne({email : req.body.email}).exec(function(err,user){
     if (err){
         res.json({err, err});
     } else {
@@ -109,11 +87,11 @@ function setting(req, res) {
 
   var query = {'_id' : req.body._id}
 
-  UserSchema.updateOne(query, data, function (err, doc){
+  db.User.updateOne(query, data, function (err, doc){
     if (err) res.json({err, err});
   })
 
-  UserSchema.findOne({ _id: req.body._id, }).exec(function (err, user) {
+  db.User.findOne({ _id: req.body._id, }).exec(function (err, user) {
     if (err) {
       res.json({ err, err });
     } else {
@@ -122,82 +100,61 @@ function setting(req, res) {
   });
 }
 
-/* 
-function metaUserProfile(req, res) {
-  
-  UserSchema.findOne({email : req.body.email}).exec(function(err,user){
-    if (user == null || user==undefined || user==""){
-      var data = {
-        "username"          : req.body.username,
-        "bio"           : req.body.bio,
-		"email"      : req.body.email,
-        "address"      : req.body.address,
-        "hash"          : req.body.hash,
-        "signStatus"      : req.body.signStatus
-	  }
-      UserSchema.create(data, function(err, user){
-        if (err){
-          res.json({err, err});
-        } else {
-          res.json({user,user}) ;
-        }
-      })
-    } else {
-      var data = {
-        "username"          : req.body.username,
-        "bio"           : req.body.bio,
-        "address"      : req.body.address,
-        "hash"          : req.body.hash,
-        "signStatus"      : req.body.signStatus
-	  }
-	  
-	  var query = {'_id' : user._id}
-
-	  UserSchema.updateOne(query, data, function (err, doc){
+function userProfile(req, res) {	
+    db.User.findOne({ _id: req.body._id }).exec(function (err, user) {
 		if (err) {
-			res.json({err, err});
+		  res.json({ err, err });
 		} else {
-			UserSchema.findOne({'_id' : user._id}, function (err, user){
-				if (err){
-				  res.json({err, err});
-				} else {
-				  res.json({user,user}) ;
-				  
-				}
-			})
+		  res.json({ user, user });
 		}
-	  })	  
-    }
-  }); 
+	  });
 }
-*/
 
-function userProfile(req, res) {
-    if (req.body.address && req.body.email){
-	  UserSchema.findOne({ address: req.body.address, email:req.body.email }).exec(function (err, user) {
-		if (err) {
-		  res.json({ err, err });
-		} else {
-		  res.json({ user, user });
-		}
-	  });
-	} else if (req.body.email) {
-	   UserSchema.findOne({ email:req.body.email }).exec(function (err, user) {
-		if (err) {
-		  res.json({ err, err });
-		} else {
-		  res.json({ user, user });
-		}
-	  });
-	} else if (req.body.address){
-	   UserSchema.findOne({ address: req.body.address }).exec(function (err, user) {
-		if (err) {
-		  res.json({ err, err });
-		} else {
-		  res.json({ user, user });
-		}
-	  });
-	}
+function registerMetamask(req, res) {
+  if (req.body._id == "undefined" || req.body._id == null || req.body._id==""){
+    db.User.findOne({address : req.body.address}).exec(function(err,user){
+      if (user == null || user==undefined || user==""){  
+        var data = {
+        "address"      : req.body.address,
+        "chainId"      : req.body.chainId,
+        }
+        
+        db.User.create(data, function(err, user){
+        if (err){
+          res.status(401).json(err);
+        } else {
+          res.status(201).json(user) ;
+        }
+        })
+      } else {
+        res.status(201).json(user) ;
+      }
+    });
+  } else {
+    db.User.findOne({address : req.body.address}).exec(function(err,user){
+      if (user == null || user==undefined || user==""){  
+        var data = {
+        "address"      : req.body.address,
+        "chainId"      : req.body.chainId,
+        }
+        var query = {'_id' : req.body._id}
+        db.User.updateOne(query, data, function (err, user){
+          if (err){
+            res.status(401).json(err);
+          } else {
+            db.User.findOne({_id : req.body._id}).exec(function(err,user){
+              res.status(201).json(user) ;
+            })
+          }
+        })
+      } else {
+        user = "";
+        //res.json({user, user});
+        res.status(201).json(user) ;
+      }
+    });
+  }
+    
 }
 
 function metaUserProfile(req, res) {
@@ -218,41 +175,45 @@ function metaUserProfile(req, res) {
         "ethvalue"      : req.body.ethvalue,
 		"exchange"      : req.body.exchange,
 		"roles"			: "0"
-	  }
-  UserSchema.findOne({email : req.body.beforeEmail}).exec(function(err,user){
-    if (user == null || user==undefined || user==""){  
-	  UserSchema.findOne({address : req.body.address}).exec(function(err,user){
-		if (user == null || user==undefined || user==""){  
-			UserSchema.create(data, function(err, user){
-				if (err){
-				  res.json({err, err});
-				} else {
-				  res.json({user,user}) ;
-				  console.log(user)
-				}
-			})
-		} else {
-			var query = {'address' : user.address}
-			//console.log(222+user.address)
-			UserSchema.updateOne(query, data, function (err, user){
-			if (err) {
-				res.json({err, err});
-			} else {
-				res.json({user,user}) ;					  
-			}
-		  })
-		}
-	  })
-    } else {
-      var query = {'_id' : user._id}
-	  //console.log(111+user._id)
-      UserSchema.updateOne(query, data, function (err, user){
-		if (err) {
-			res.json({err, err});
-		} else {
-			res.json({user,user}) ;
-		}
-	  })
+	}
+  db.User.findOne({email : req.body.email}).exec(function(err,user1){
+    if ( req.body.beforeEmail == null || req.body.beforeEmail==undefined || req.body.beforeEmail=="" || req.body.beforeEmail==req.body.email){
+      if (req.body.beforeEmail == null || req.body.beforeEmail==undefined || req.body.beforeEmail==""){  
+        var query = {'address' : req.body.address}              
+      } else {;
+        var query = {'email' : req.body.beforeEmail}             
+      }
+
+      db.User.updateOne(query, data, function (err, user3){
+        console.log(44444444);
+        if (err) {
+          res.json({err, err});
+        } else {
+            db.User.findOne({address : req.body.address}).exec(function(err,user){
+            res.json({user, user}) ;	
+          })
+        }
+      })
+    } else {      
+      if (user1 == null || user1==undefined || user1==""){  
+         db.User.findOne({address : req.body.address}).exec(function(err,user2){
+            var query = {'email' : req.body.beforeEmail}  
+            db.User.updateOne(query, data, function (err, user3){
+              console.log(333333);
+              if (err) {
+                res.json({err, err});
+              } else {
+                db.User.findOne({address : req.body.address}).exec(function(err,user){
+                  res.json({user, user}) ;	
+                })
+              }
+            })
+          }) 
+      } else {
+        user={user: "222"};
+        res.json({user, user});
+      }
     }
+    
   }); 
 }

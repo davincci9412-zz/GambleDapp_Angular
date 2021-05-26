@@ -27,6 +27,8 @@ if (config.MONGOOSE_DEBUG) {
 }
 */
 mongoose.connect(mongoUri, { 
+  keepAlive: 1,
+  useCreateIndex: true,
   useNewUrlParser: true, 
   useUnifiedTopology: true
 });
