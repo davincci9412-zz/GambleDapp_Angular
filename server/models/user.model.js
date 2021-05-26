@@ -28,35 +28,31 @@ const UserSchema = new mongoose.Schema({
 });
 */
 const UserSchema = new mongoose.Schema({
+  address: {
+    type: String,
+  },
+  chainId: {
+	  type: String,
+  },
+  hash: {
+    type: String,
+  },
   username: {
     type: String,
   },
   email: {
     type: String,
-    unique: true,
     // Regexp to validate emails with more strict rules as added in tests/users.js which also conforms mostly with RFC2822 guide lines
-    match: [/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Please enter a valid email'],
+    // match: [/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Please enter a valid email'],
   },
   password: {
     type: String,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  },
   roles: {
     type: String,
-  },
-  address: {
-    type: String,
-  },
-  hash: {
-    type: String,
-  },
+	  default: "0"
+  },   
   signStatus: {
-    type: String,
-  },
-  username: {
     type: String,
   },
   bio: {
@@ -94,10 +90,13 @@ const UserSchema = new mongoose.Schema({
   },
   exchange: {
     type: String,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
-}, {
-  versionKey: false
 });
+var User = mongoose.model('User', UserSchema);
+module.exports = User
 
 
-module.exports = mongoose.model('User', UserSchema);

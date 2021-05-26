@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@app/shared/services';
-import { Metamask } from '@app/shared/services/metamask/metamask.service';
-import { OfferService } from '@app/shared/services/offer/offer.service';
 import { FormGroup, FormControl, Validators, FormBuilder,} from '@angular/forms';
+import { OfferService } from '@app/shared/services';
 
 @Component({
   selector: 'app-market',
@@ -15,14 +13,15 @@ export class MarketComponent implements OnInit {
   rememberMe = false;
   current_user:any;
   
-  exist = false;
-  beforeEmail :any;
-  address:any;
+  user_id : any;
+  marketOffers : any;  
+  market_label = false;
+  filters : any;
 
   generalForm : FormGroup;
 
 
-  constructor(private router: Router, private offerService: OfferService, private authService: AuthService, private Metamask: Metamask, private fb: FormBuilder) {
+  constructor(private router: Router, private offerService: OfferService, private fb: FormBuilder) {
     this.generalForm = this.fb.group({
       minAmount: new FormControl(''),
       maxAmount: new FormControl(''),
@@ -30,28 +29,35 @@ export class MarketComponent implements OnInit {
     });
   }
 
-  ngOnInit() {     
-    this.beforeEmail = sessionStorage.getItem('email');
-    this.address = sessionStorage.getItem('address')
-    /*
-    this.offerService.userProfile(this.beforeEmail, this.address).subscribe((offer: { minAmount: any; maxAmount: any; status: any; } | null | undefined) => { 
-      if (offer == undefined || offer == null ) {
-            
-      } else {        
-        this.generalForm.patchValue({minAmount: offer.minAmount});
-        this.generalForm.patchValue({maxAmount:offer.maxAmount});
-        this.generalForm.patchValue({status: offer.status});
-      }
-    }) 
-    */
+  async ngOnInit() {     
+    this.user_id = sessionStorage.getItem("_id");
+    this.marketOffers = await this.offerService.getMarketOffers(this.user_id);
+
+    for(let i=0; i<this.marketOffers.length; i++){
+      this.marketOffers[i].term == "1" ? this.marketOffers[i].term = "English Premier League":i=i;
+      this.marketOffers[i].term == "2" ? this.marketOffers[i].term = "NBA":i=i;
+      this.marketOffers[i].term == "3" ? this.marketOffers[i].term = "Spanish Premier League":i=i;
+    }
+    if (this.marketOffers.length > 0) {
+      this.market_label = true;
+    }
+
   }
 
-  offerClick(): void {
-    this.router.navigateByUrl("/offer/join-offer")  
+  async onGeneralSubmit() {
+    var { minAmount, maxAmount, status } = this.generalForm.getRawValue()    
+
+    this.marketOffers = await this.offerService.getFilter(this.user_id, minAmount, maxAmount, status, "0");     
+    for(let i=0; i<this.marketOffers.length; i++){
+      this.marketOffers[i].term == "1" ? this.marketOffers[i].term = "English Premier League":i=i;
+      this.marketOffers[i].term == "2" ? this.marketOffers[i].term = "NBA":i=i;
+      this.marketOffers[i].term == "3" ? this.marketOffers[i].term = "Spanish Premier League":i=i;
+    }
+    (this.marketOffers.length > 0) ? this.market_label = true : this.market_label=false;
   }
 
-  joinClick(): void {
-    this.router.navigateByUrl("/offer/join-offer")  
+  joinClick(id:string): void {
+    this.router.navigateByUrl("/offer/join-offer/"+id)  
   }
 
   

@@ -8,6 +8,7 @@ import { SetOfferComponent } from './set-offer/set-offer.component';
 import { JoinOfferComponent } from './join-offer/join-offer.component';
 import { AcceptOfferComponent } from './accept-offer/accept-offer.component';
 import { SettledOfferComponent } from './settled-offer/settled-offer.component';
+import { ContestOfferComponent } from './contest-offer/contest-offer.component';
 
 const routes: Routes = [{
   path: '',
@@ -24,21 +25,25 @@ const routes: Routes = [{
         path: 'market',
         component: MarketComponent,
       },
-	  {
+	    {
         path: 'set-offer',
         component: SetOfferComponent,
       },
-	  {
-        path: 'join-offer',
+	    {
+        path: 'join-offer/:id',
         component: JoinOfferComponent,
       },
-	  {
-        path: 'accept-offer',
+	    {
+        path: 'accept-offer/:id',
         component: AcceptOfferComponent,
       },
-	  {
-        path: 'settled-offer',
+	    {
+        path: 'settled-offer/:id',
         component: SettledOfferComponent,
+      },
+      {
+        path: 'contest-offer/:id',
+        component: ContestOfferComponent,
       },
     ],
 }];

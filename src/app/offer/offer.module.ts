@@ -9,6 +9,7 @@ import { SetOfferComponent } from './set-offer/set-offer.component';
 import { JoinOfferComponent } from './join-offer/join-offer.component';
 import { AcceptOfferComponent } from './accept-offer/accept-offer.component';
 import { SettledOfferComponent } from './settled-offer/settled-offer.component';
+import { ContestOfferComponent } from './contest-offer/contest-offer.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SettledOfferComponent } from './settled-offer/settled-offer.component';
 	JoinOfferComponent,
 	AcceptOfferComponent,
 	SettledOfferComponent,
+ ContestOfferComponent,
   ],
   imports: [
     SharedModule,
