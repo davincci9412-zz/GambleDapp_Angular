@@ -42,6 +42,7 @@ export function appInitializerFactory(authService: AuthService) {
       deps: [AuthService],
     },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
+  
 })
 export class AppModule {}

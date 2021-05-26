@@ -32,11 +32,11 @@ export class AppComponent {
     this.registerSvgIcons();
     if (location.href.search("login")>0 || location.href.search("register")>0 || location.href.search("password-setting")>0 || location.href.search("forgot")>0 ){
       this.menu_status = false;	
-      if (sessionStorage.getItem('address') || sessionStorage.getItem('_id') || localStorage.getItem('rememberCurrentUser') ) {          
+      if (sessionStorage.getItem('_id') || localStorage.getItem('rememberCurrentUser') ) {          
         this.router.navigate(["/"]).then(() => { window.location.reload();})  
       }
     } else {
-      if (sessionStorage.getItem('address') || sessionStorage.getItem('_id') || localStorage.getItem('rememberCurrentUser') ) {      
+      if (sessionStorage.getItem('_id') || localStorage.getItem('rememberCurrentUser') ) {      
       } else {
         this.router.navigate(["/auth/login"]).then(() => { window.location.reload();})  
       }
