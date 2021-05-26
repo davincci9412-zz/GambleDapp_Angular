@@ -31,8 +31,13 @@
             <div class="form-group ">
                 <h6 class="text-danger">Describe your reason that makes the contest</h6>
                 <textarea formControlName="desc" class="form-control mb-4" placeholder="" ></textarea> 
+
                 <div *ngIf="desc!.invalid && (desc!.dirty || desc!.touched)" class="p-2 text-danger">
                     <div *ngIf="desc!.errors!.required">
+
+                <div *ngIf="desc.invalid && (desc.dirty || desc.touched)" class="p-2 text-danger">
+                    <div *ngIf="desc.errors.required">
+
                         This field is required.
                     </div>
                 </div>  

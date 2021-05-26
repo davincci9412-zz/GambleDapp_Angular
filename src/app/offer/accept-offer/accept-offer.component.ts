@@ -76,6 +76,7 @@ export class AcceptOfferComponent implements OnInit {
     }
   }
 
+
   async onNotificationSubmit() {
     /*
         var { desc } = this.notificationForm.getRawValue()    
@@ -89,5 +90,6 @@ export class AcceptOfferComponent implements OnInit {
         }
      */  
       } 
+
 
 }

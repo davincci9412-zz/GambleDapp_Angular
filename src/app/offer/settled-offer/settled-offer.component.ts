@@ -66,6 +66,7 @@ export class SettledOfferComponent implements OnInit {
     });
   }  
 
+
   async onNotificationSubmit() {
 /*
     var { desc } = this.notificationForm.getRawValue()    
@@ -79,5 +80,6 @@ export class SettledOfferComponent implements OnInit {
     }
  */  
   } 
+
 
 }

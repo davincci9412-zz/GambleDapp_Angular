@@ -26,7 +26,7 @@ export class Metamask {
         window.open("https://metamask.io/download.html");
       } else {
         this.chainId = window.ethereum.chainId;
-		
+
         if (window.ethereum.isConnected()) {
           let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
           if (Array.isArray(accounts)){
@@ -62,7 +62,7 @@ export class Metamask {
       // For example, this method will return a transaction hash hexadecimal string on success.
       let _id= sessionStorage.getItem("_id");
       //this.authService.registerMetamask(address, chainId);
-      const headers = new HttpHeaders().set('Content-Type', 'application/json');      
+      const headers = new HttpHeaders().set('Content-Type', 'application/
 
 	  this.http.post('/api/auth/registerMetamask', {_id, address, chainId}, {  
         headers: headers
@@ -81,8 +81,9 @@ export class Metamask {
           
           this.router.navigate(["/setting"]).then(() => {window.location.reload();})
         }
+
       })   
-  
+
     })
     .catch((error: any) => {
       // If the request fails, the Promise will reject with an error.

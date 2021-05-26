@@ -32,8 +32,13 @@
             <div class="border-box">{{desc}}</div>
         </div>                  
         <div class="btn-between">
+
             <button type="button" class="btn btn-primary no-border-box btn-large" (click)="win('1')" >{{creator_name}} won</button>
             <button type="button" class="btn btn-primary no-border-box btn-large" (click)="win('2')" >{{opponent_name}} won</button>
+
+            <button type="button" class="btn btn-primary no-border-box btn-large" (click)="win(1)" >{{creator_name}} won</button>
+            <button type="button" class="btn btn-primary no-border-box btn-large" (click)="win(2)" >{{opponent_name}} won</button>
+
         </div>
     </form> 
 </div>

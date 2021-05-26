@@ -126,8 +126,20 @@
                 </div> 
             </div>                     
             <div class="mb-5 btn-right">
-                <button type="submit" class="btn btn-primary no-border-box btn-medium" [disabled]="!notificationForm.valid">Save</button>
-            </div>            
+                <button type="submit" class="btn btn-primary no-border-box btn-medium" [disabled]="!notificationForm.valid">Save</buton>
+            </div>
+            <div class="">
+                <div *ngIf="success" class="p-2 text-danger">
+                    Saved successfully.
+                </div>
+            </div>
+            <div class="form-group">
+                <div *ngIf="fail" class="p-2 text-danger">
+                    Email address is duplicated. Please try it again.
+                </div>
+            </div>
+            
+
         </form> 
     </div>
   </div>

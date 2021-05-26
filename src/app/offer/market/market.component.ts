@@ -57,7 +57,9 @@ export class MarketComponent implements OnInit {
   }
 
   joinClick(id:string): void {
+
     this.router.navigateByUrl("/offer/join-offer/"+id)  
+
   }
 
   

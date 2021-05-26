@@ -99,6 +99,7 @@ export class AuthService {
       .post<AuthResponse>('/api/auth/login', { email, password })
       .pipe(
         tap(({ token , user}) => {
+
           if (user != null ){
             this.setUser(user);         
             sessionStorage.setItem('_id', user._id)
@@ -109,6 +110,18 @@ export class AuthService {
             sessionStorage.setItem('roles', user.roles)
             sessionStorage.setItem('user', JSON.stringify(user))     
           }
+
+          
+          //this.tokenStorage.saveToken(token);          
+          this.setUser(user);         
+          sessionStorage.setItem('_id', user._id)
+          sessionStorage.setItem('username', user.username)
+          sessionStorage.setItem('email', user.email)
+          sessionStorage.setItem('address', user.address)
+          sessionStorage.setItem('chainId', user.chainId)
+          sessionStorage.setItem('roles', user.roles)
+          sessionStorage.setItem('user', JSON.stringify(user))       
+
         }),
         pluck('user')
       );
