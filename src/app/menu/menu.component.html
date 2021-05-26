@@ -1,0 +1,48 @@
+<div class="menu-back"></div>
+<div class="menu-item">
+    <div class="item">
+      <img src="/assets/icons/fighter-plane.svg" height="15"> My Wallet
+      <div *ngIf="metaUser" class="btn" data-toggle="modal" data-target="#myModal">{{addressSlice}}</div>
+      <div *ngIf="!metaUser" class="btn" (click)="metamask()">Log in with <img src="/assets/metamask-fox.svg" height="40"></div>
+      <div *ngIf="duplicationWallet" class="text-danger">Wallet Address Duplication</div>
+    </div>
+    <div *ngIf="roles" class="item btn" (click)="adminClick()">
+      <img src="/assets/icons/horseback-riding.svg" height="15"> Admin
+    </div>
+    <div class="item btn" (click)="dashboardClick()">
+      <img src="/assets/icons/railcar.svg" height="15"> Dashboard
+    </div>
+    <div class="item btn" (click)="accountClick()">
+      <img src="/assets/icons/motorcycle.svg" height="15"> My Account
+    </div>
+    <div class="item btn" (click)="offersClick()">
+      <img src="/assets/icons/car.svg" height="15"> My Offers
+    </div>  
+    <div class="item btn" (click)="marketClick()">
+      <img src="/assets/icons/space-shuttle.svg" height="15"> Market
+    </div>  
+    <div class="item btn" (click)="logoutClick()">
+      <img src="/assets/icons/balloon.svg" height="15"> Log Out
+    </div>    
+</div> 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">ETH account</h4>
+		    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	    </div>
+      <div class="modal-body">
+        <h6 class="mb-3">Your Wallet Address</h6>
+        <input type="text"  class="form-control mb-4 small" placeholder="{{address}}" readonly>
+      </div>
+      <div class="modal-footer btn-between">
+        <button type="button" class="btn btn-primary btn-medium" data-dismiss="modal" >Add Funds</button>
+        <button type="button" class="btn btn-primary btn-medium" data-dismiss="modal" (click)="logoutClick()">Log out</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
