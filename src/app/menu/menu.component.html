@@ -4,6 +4,7 @@
       <img src="/assets/icons/fighter-plane.svg" height="15"> My Wallet
       <div *ngIf="metaUser" class="btn" data-toggle="modal" data-target="#myModal">{{addressSlice}}</div>
       <div *ngIf="!metaUser" class="btn" (click)="metamask()">Log in with <img src="/assets/metamask-fox.svg" height="40"></div>
+      <div *ngIf="duplicationWallet" class="text-danger">Wallet Address Duplication</div>
     </div>
     <div *ngIf="roles" class="item btn" (click)="adminClick()">
       <img src="/assets/icons/horseback-riding.svg" height="15"> Admin
@@ -29,8 +30,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">ETH account</h4>
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	  </div>
+		    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	    </div>
       <div class="modal-body">
         <h6 class="mb-3">Your Wallet Address</h6>
         <input type="text"  class="form-control mb-4 small" placeholder="{{address}}" readonly>
@@ -42,4 +43,6 @@
     </div>
   </div>
 </div>
+
+
   
