@@ -15,7 +15,10 @@ export interface User {
   _id: string;
   email:string;
   password:string;
+  address:string;
+  chainId:string;
   createdAt: string;
   roles: string;
   isAdmin: boolean;
+  user:string;
 }

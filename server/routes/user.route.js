@@ -1,3 +1,4 @@
+
 const express = require('express');
 const passport = require('passport');
 const asyncHandler = require('express-async-handler');
@@ -16,3 +17,5 @@ async function insert(req, res) {
   let user = await userCtrl.insert(req.body);
   res.json(user);
 }
+
+

@@ -13,24 +13,20 @@ import { AuthService } from '@app/shared/services';
 export class HeaderComponent {
 //  @Input() user: User | null = null;
   rememberMe = false;
-  @Input() user:any;
+  @Input() _id:any;
+  user: any;
 
   constructor(private router: Router, private authService: AuthService) {
     this.rememberMe = localStorage.getItem('rememberCurrentUser') == 'true' ? true : false;
     if (sessionStorage.getItem('_id')){
-      this.user = sessionStorage.getItem('user');
-      this.user = JSON.parse( this.user );  
+      this._id = sessionStorage.getItem('_id');
     } else if(this.rememberMe == true) {
       if (localStorage.getItem('currentUser') !==null ) {
         this.user = localStorage.getItem('currentUser');
-        this.user = JSON.parse( this.user );   
+        this._id = JSON.parse( this.user )._id;   
       } 
     }
-    if (sessionStorage.getItem('address')){
-      this.user = true;
-    }
-
-
+    
   }
 
   logout(): void {

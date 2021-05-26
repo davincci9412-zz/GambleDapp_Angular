@@ -1,5 +1,5 @@
-<div class="form-center min-vh">
-  <div class="form-signin col-lg-5">
+<div class="container form-center min-vh">
+  <div class="form-signin col-lg-6">
     <div class="h4 text-center">
       Register New Account
     </div>
@@ -12,8 +12,8 @@
       <div class="form-group">
         <label>Fullname</label>
         <input type="text"  formControlName="username" class="form-control" placeholder="Fullname" >
-        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="p-2 text-danger">
-          <div *ngIf="username.errors.required">
+        <div *ngIf="username!.invalid && (username!.dirty || username!.touched)" class="p-2 text-danger">
+          <div *ngIf="username!.errors!.required">
             Fullname is required.
           </div>
         </div>
@@ -21,11 +21,11 @@
       <div class="form-group">
         <label>Email</label>
         <input type="email" id="email" formControlName="email" class="form-control" placeholder="Email" required>
-        <div *ngIf="email.invalid  && (email.dirty || email.touched)" class="p-2 text-danger">
-          <div *ngIf="email.errors.required">
+        <div *ngIf="email!.invalid  && (email!.dirty || email!.touched)" class="p-2 text-danger">
+          <div *ngIf="email!.errors!.required">
             Email is required.
           </div>
-          <div *ngIf="email.errors.email">
+          <div *ngIf="email!.errors!.email">
             Enter a valid email
           </div>
         </div>
@@ -33,8 +33,8 @@
       <div class="form-group">
         <label>Password</label>
         <input type="password"  formControlName="password" class="form-control" placeholder="Password" >
-        <div *ngIf="password.invalid  && (password.dirty || password.touched)" class="p-2 text-danger">
-          <div *ngIf="password.errors.required">
+        <div *ngIf="password!.invalid  && (password!.dirty || password!.touched)" class="p-2 text-danger">
+          <div *ngIf="password!.errors!.required">
             Password is required.
           </div>
         </div>
@@ -42,8 +42,8 @@
       <div class="form-group mb-5">
         <label>Repeat Password</label>
         <input type="password"  formControlName="repeatPassword" class="form-control" placeholder="Repeat Password" >
-        <div *ngIf="repeatPassword.invalid  && (repeatPassword.dirty || repeatPassword.touched) || repeatPassword.hasError('passwordMatch')" class="p-2 text-danger">
-          <div *ngIf="repeatPassword.errors.required">
+        <div *ngIf="repeatPassword!.invalid  && (repeatPassword!.dirty || repeatPassword!.touched) || repeatPassword.hasError('passwordMatch')" class="p-2 text-danger">
+          <div *ngIf="repeatPassword!.errors!.required">
             Repeat Password is required.
           </div>
           <div *ngIf="repeatPassword.hasError('passwordMatch')">
