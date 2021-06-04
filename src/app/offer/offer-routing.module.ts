@@ -5,6 +5,7 @@ import { OfferComponent } from './offer.component';
 import { OffersComponent } from './offers/offers.component';
 import { MarketComponent } from './market/market.component';
 import { SetOfferComponent } from './set-offer/set-offer.component';
+import { ViewOfferComponent } from './view-offer/view-offer.component';
 import { JoinOfferComponent } from './join-offer/join-offer.component';
 import { AcceptOfferComponent } from './accept-offer/accept-offer.component';
 import { SettledOfferComponent } from './settled-offer/settled-offer.component';
@@ -30,6 +31,10 @@ const routes: Routes = [{
         component: SetOfferComponent,
       },
 	    {
+        path: 'view-offer/:id',
+        component: ViewOfferComponent,
+      },
+      {
         path: 'join-offer/:id',
         component: JoinOfferComponent,
       },

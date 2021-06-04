@@ -56,6 +56,17 @@ export class OfferService {
     });
   } 
 
+  getCreateOffers(user_id: string){
+    return new Promise(resolve => {
+      const headers = new HttpHeaders().set('Content-Type', 'application/json');      
+      this.http.post('/api/offer/getCreateOffers', { user_id}, {  
+        headers: headers
+      }).subscribe((data:any)=>{
+        resolve(data);
+      })
+    });
+  } 
+
   getJoinOffers(user_id: string){
     return new Promise(resolve => {
       const headers = new HttpHeaders().set('Content-Type', 'application/json');      

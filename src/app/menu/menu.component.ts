@@ -13,8 +13,13 @@ export class MenuComponent implements OnInit {
   addressSlice:any;
   hash:any;
   roles:any;
-  metaUser = false;
   duplicationWallet:any;
+
+  metaUser = false;
+  first_screen = false;
+  second_screen = false;
+  deposit_screen = false;
+  card_screen = false;  
 
   constructor(private router: Router, private authService: AuthService, private Metamask: Metamask) {  
     if ( sessionStorage.getItem('address') == "undefined" || sessionStorage.getItem('address') == null ){   
@@ -23,6 +28,7 @@ export class MenuComponent implements OnInit {
       this.address = sessionStorage.getItem('address');
       this.addressSlice = this.address.slice(0,6) + '...'+this.address.slice(36,42)
       this.metaUser = true;
+      this.first_screen =  true;
     }
     this.roles = sessionStorage.getItem("roles")=="1" ? true:false;
   }
@@ -60,5 +66,44 @@ export class MenuComponent implements OnInit {
   async metamask(){
     await this.Metamask.connectETH();
   }
+
+  addFund(): void{
+    this.first_screen = false;
+    this.second_screen = true;
+    this.deposit_screen = false;
+    this.card_screen = false;
+
+  }
+  
+  goBack(order:string): void{
+    switch (order){
+      case "1":
+        this.first_screen = true;
+        this.second_screen = false;
+        this.deposit_screen = false;
+        this.card_screen = false;
+        break;
+      case "2":
+        this.first_screen = false;
+        this.second_screen = true;
+        this.deposit_screen = false;
+        this.card_screen = false;
+        break;
+      case "3":
+        this.first_screen = false;
+        this.second_screen = false;
+        this.deposit_screen = true;
+        this.card_screen = false;
+        break;
+      case "4":
+        this.first_screen = false;
+        this.second_screen = false;
+        this.deposit_screen = false;
+        this.card_screen = true;
+        break;
+    } 
+  }
+  
+  
 
 }

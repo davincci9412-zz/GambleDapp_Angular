@@ -185,7 +185,6 @@ function metaUserProfile(req, res) {
       }
 
       db.User.updateOne(query, data, function (err, user3){
-        console.log(44444444);
         if (err) {
           res.json({err, err});
         } else {

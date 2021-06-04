@@ -2,6 +2,19 @@
     <div class="section mb-3">
         <h4 class="mb-2">My Offers</h4>
         <div class="border-box mb-3">     
+            <div *ngIf="create_label">
+                <div class="row">               
+                    <div *ngFor="let createOffer of createOffers" class="col-md-3" ><button class="offer-btn btn" (click)="viewClick(createOffer._id)">{{createOffer.term}}</button></div>
+                </div>
+            </div>
+            <div *ngIf="!create_label">
+                <h4 class="text-center my-3 text-danger">You don't have the joined offer yet.</h4>
+            </div>
+        </div>
+    </div>
+    <div class="section mb-3">
+        <h4 class="mb-2">Accepted Offers</h4>
+        <div class="border-box mb-3">     
             <div *ngIf="join_label">
                 <div class="row">               
                     <div *ngFor="let joinOffer of joinOffers" class="col-md-3" ><button class="offer-btn btn" (click)="acceptClick(joinOffer._id)">{{joinOffer.term}}</button></div>

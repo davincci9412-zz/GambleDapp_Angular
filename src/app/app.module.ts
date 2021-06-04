@@ -16,6 +16,7 @@ import { TransferComponent } from './transfer/transfer.component';
 import { MenuComponent } from './menu/menu.component';
 import { AccountComponent } from './account/account.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { WalletComponent } from './wallet/wallet.component';
 
 export function appInitializerFactory(authService: AuthService) {
   return () => authService.checkTheUserOnTheFirstLoad();
@@ -23,7 +24,7 @@ export function appInitializerFactory(authService: AuthService) {
 
 @NgModule({
   imports: [BrowserAnimationsModule, HttpClientModule, SharedModule,AppRoutingModule, NgbModule,],
-  declarations: [AppComponent, HeaderComponent, HomeComponent, TransferComponent, MenuComponent, AccountComponent],
+  declarations: [AppComponent, HeaderComponent, HomeComponent, TransferComponent, MenuComponent, AccountComponent, WalletComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

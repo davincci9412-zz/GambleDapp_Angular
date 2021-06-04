@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
-
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-
 import { merge, Observable } from 'rxjs';
-
 import { User } from './shared/interfaces';
 import { AuthService } from './shared/services';
 import { Router } from '@angular/router';
@@ -28,8 +25,9 @@ export class AppComponent {
     this.authService.getUser()
   );
 
-  constructor(private domSanitizer: DomSanitizer, private matIconRegistry: MatIconRegistry, private authService: AuthService, private router: Router, ) {
+  constructor(private domSanitizer: DomSanitizer, private matIconRegistry: MatIconRegistry, private authService: AuthService, private router: Router ) {
     this.registerSvgIcons();
+   
     if (location.href.search("login")>0 || location.href.search("register")>0 || location.href.search("password-setting")>0 || location.href.search("forgot")>0 ){
       this.menu_status = false;	
       if (sessionStorage.getItem('_id') || localStorage.getItem('rememberCurrentUser') ) {          

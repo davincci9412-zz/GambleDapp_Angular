@@ -76,6 +76,31 @@ body {
 	padding:3% 2%;
 }
 
+.cursor:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+.modal-header.btn-between{
+	padding-top:1.5em;
+}
+.second-screen{
+	text-align:center;
+	opacity:0.8
+}
+.action-button{
+	padding: 10px 15px 10px 25px;
+    line-height: 1.6;
+    width: 60%;
+    margin: 18px auto;
+    border: 1px solid #d8d8d8;
+    border-radius: 5px;
+    display: flex;
+    justify-content: left
+}
+.moonpay iframe{
+	width: 100%;
+    min-height: 550px;
+    border: none;
+}
 .btn-right{
 	display:flex;
 	justify-content:flex-end;

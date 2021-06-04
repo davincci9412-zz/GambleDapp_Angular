@@ -6,6 +6,7 @@ module.exports = router;
 
 router.post('/register', register);
 router.post('/getMarketOffers', getMarketOffers);
+router.post('/getCreateOffers', getCreateOffers);
 router.post('/getJoinOffers', getJoinOffers);
 router.post('/getAcceptOffers', getAcceptOffers);
 router.post('/getSettledOffers', getSettledOffers);
@@ -63,6 +64,16 @@ function getMarketOffers(req, res) {
 	}
   });
 }
+
+function getCreateOffers(req, res) {	
+	db.Offer.find({creator_id: { $eq: req.body.user_id } , offer_status:"0"}).exec(function (err, offers) {
+	  if (err) {		
+		res.status(401).json(err);
+	  } else {		
+		res.status(201).json(offers);
+	  }
+	});
+  }
 
 function getJoinOffers(req, res) {	
   db.Offer.find({creator_id:req.body.user_id, offer_status:"1"}).exec(function (err, offers) {

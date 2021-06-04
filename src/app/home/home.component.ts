@@ -13,11 +13,13 @@ export class HomeComponent implements OnInit {
   user_id:any;
   
   marketOffers : any;
+  createOffers : any;
   joinOffers : any;
   acceptOffers : any;
   settledOffers : any;
   
   market_label = false;
+  create_label = false;
   join_label = false;
   accept_label = false;
   settled_label = false;
@@ -33,6 +35,7 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {     
     this.user_id = sessionStorage.getItem("_id");
     this.marketOffers = await this.offerService.getMarketOffers(this.user_id);
+    this.createOffers = await this.offerService.getCreateOffers(this.user_id);
     this.joinOffers = await this.offerService.getJoinOffers(this.user_id);
     this.acceptOffers = await this.offerService.getAcceptOffers(this.user_id);
     this.settledOffers = await this.offerService.getSettledOffers(this.user_id);
@@ -44,6 +47,15 @@ export class HomeComponent implements OnInit {
     }
     if (this.marketOffers.length > 0) {
       this.market_label = true;
+    }
+
+    for(let i=0; i<this.createOffers.length; i++){
+      this.createOffers[i].term == "1" ? this.createOffers[i].term = "English Premier League":i=i;
+      this.createOffers[i].term == "2" ? this.createOffers[i].term = "NBA":i=i;
+      this.createOffers[i].term == "3" ? this.createOffers[i].term = "Spanish Premier League":i=i;
+    }
+    if (this.createOffers.length > 0) {
+      this.create_label = true;
     }
     
     for(let i=0; i<this.joinOffers.length; i++){
@@ -94,12 +106,12 @@ export class HomeComponent implements OnInit {
     this.router.navigateByUrl("/offer/offers")  
   }
 
+  viewClick(id:string): void {
+    this.router.navigateByUrl("/offer/view-offer/"+id)  
+  }
+  
   marketClick(): void {
     this.router.navigateByUrl("/offer/market")  
   }
-
-
-
-
 
 }
