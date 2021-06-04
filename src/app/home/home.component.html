@@ -1,7 +1,7 @@
 <div class='dashboard'>
-    <div class="section mb-3">
+    <div class="section mb-5">
         <h4 class="mb-2">My Offers</h4>
-        <div class="border-box mb-3">     
+        <div class="border-box">     
             <div *ngIf="create_label">
                 <div class="row">               
                     <div *ngFor="let createOffer of createOffers" class="col-md-3" ><button class="offer-btn btn" (click)="viewClick(createOffer._id)">{{createOffer.term}}</button></div>
@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div class="section mb-3">
+    <div class="section mb-4">
         <h4 class="mb-2">Accepted Offers</h4>
         <div class="border-box mb-3">     
             <div *ngIf="join_label">
