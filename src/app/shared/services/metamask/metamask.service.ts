@@ -26,20 +26,23 @@ export class Metamask {
         window.open("https://metamask.io/download.html");
       } else {
         this.chainId = window.ethereum.chainId;
-		
+        // window.ethereum.request({method: 'disconnect'}).then((result: any) => {
+        //   console.log("disconnected");
+        // })
+        //window.ethereum.on('connect', this.reConnect);
         if (window.ethereum.isConnected()) {
+          
           let accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+          window.ethereum.on('accountsChanged', (accounts:any) => {
+            // Handle the new accounts, or lack thereof.
+            // "accounts" will always be an array, but it can be empty.
+            console.log("success");
+          });
           if (Array.isArray(accounts)){
             this.address = accounts[0];
             this.signETH(this.address, this.chainId);            
           } 
         } else {
-          /*
-          interface ConnectInfo {
-            chainId: string;
-          }            
-          window.ethereum.on('connect', handler:(connectInfo: ConnectInfo) => void);
-          */
           window.ethereum.on('connect', this.chainId);
         }                   
       }        
@@ -48,14 +51,13 @@ export class Metamask {
     }
   };
 
+  reConnect() {
+  }
+
   async signETH (address: any, chainId: any) {
 
     let message='Welcome to our site\n\n Click "Sign" to sign in. No password needed!\n\nI accept this Term of Service \n\nWallet address:\n '+ address;
     let params =[address, message, chainId]
-    //const promise = window.ethereum.request({ method: 'personal_sign', params:params, }).toPromise();
-    //let params =[this.address,this.address,this.chainId]
-    //let signedAccount = await window.ethereum.request({method: 'personal_sign', params,})
-    //if (signedAccount)    sessionStorage.setItem('hash', signedAccount)
     
     await window.ethereum.request({method: 'personal_sign', params,}).then((result: any) => {
       // The result varies by by RPC method.
@@ -91,12 +93,12 @@ export class Metamask {
          
   };
 
-  getInformation(signedAccount: any){
+  getInformation(_signedAccount: any){
     
   }
 
 }
-function block(display: any, block: any) {
+function block(_display: any, _block: any) {
   throw new Error('Function not implemented.');
 }
 

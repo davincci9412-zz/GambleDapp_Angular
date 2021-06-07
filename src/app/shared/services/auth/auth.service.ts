@@ -128,7 +128,12 @@ export class AuthService {
     sessionStorage.setItem('address','');
     sessionStorage.setItem('chainID','');
     sessionStorage.setItem('hash','');
+    // if (window.ethereum === undefined) {
+    //   window.open("https://metamask.io/download.html");
+    // } else {
+    //   window.ethereum.on('disconnect', handler: (error: ProviderRpcError) => void);
     
+    // }
     //this.router.navigateByUrl('/auth/login');
   }
 
