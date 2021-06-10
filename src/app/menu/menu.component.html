@@ -2,7 +2,10 @@
 <div class="menu-item">
     <div class="item">
       <img src="/assets/icons/fighter-plane.svg" height="15"> My Wallet
-      <div *ngIf="metaUser" class="btn" data-toggle="modal" data-target="#myModal">{{addressSlice}}</div>
+	  <div *ngIf="metaUser" class="fund">
+		  <h6>{{addressSlice}}</h6>
+		  <button *ngIf="metaUser" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add Fund</button>
+	  </div>
       <div *ngIf="!metaUser" class="btn" (click)="metamask()">Log in with <img src="/assets/metamask-fox.svg" height="40"></div>
       <div *ngIf="duplicationWallet" class="text-danger">Wallet Address Duplication</div>
     </div>
