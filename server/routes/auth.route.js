@@ -24,7 +24,7 @@ var shasum = encrypt.createHash('sha1');
 function register(req, res) {
   
   db.User.findOne({email : req.body.email}).exec(function(err,user){
-    if (user == null || user==undefined || user==""){
+    if (user == null || user=="undefined" || user==""){
       var shasum = encrypt.createHash('sha1');
       shasum.update(req.body.password);
       var data = {
@@ -113,7 +113,7 @@ function userProfile(req, res) {
 function registerMetamask(req, res) {
   if (req.body._id == "undefined" || req.body._id == null || req.body._id==""){
     db.User.findOne({address : req.body.address}).exec(function(err,user){
-      if (user == null || user==undefined || user==""){  
+      if (user == null || user=="undefined" || user==""){  
         var data = {
         "address"      : req.body.address,
         "chainId"      : req.body.chainId,
@@ -132,7 +132,7 @@ function registerMetamask(req, res) {
     });
   } else {
     db.User.findOne({address : req.body.address}).exec(function(err,user){
-      if (user == null || user==undefined || user==""){  
+      if (user == null || user=="undefined" || user==""){  
         var data = {
         "address"      : req.body.address,
         "chainId"      : req.body.chainId,
@@ -177,8 +177,8 @@ function metaUserProfile(req, res) {
 		"roles"			: "0"
 	}
   db.User.findOne({email : req.body.email}).exec(function(err,user1){
-    if ( req.body.beforeEmail == null || req.body.beforeEmail==undefined || req.body.beforeEmail=="" || req.body.beforeEmail==req.body.email){
-      if (req.body.beforeEmail == null || req.body.beforeEmail==undefined || req.body.beforeEmail==""){  
+    if ( req.body.beforeEmail == null || req.body.beforeEmail=="undefined" || req.body.beforeEmail=="" || req.body.beforeEmail==req.body.email){
+      if (req.body.beforeEmail == null || req.body.beforeEmail=="undefined" || req.body.beforeEmail==""){  
         var query = {'address' : req.body.address}              
       } else {;
         var query = {'email' : req.body.beforeEmail}             
@@ -194,7 +194,7 @@ function metaUserProfile(req, res) {
         }
       })
     } else {      
-      if (user1 == null || user1==undefined || user1==""){  
+      if (user1 == null || user1=="undefined" || user1==""){  
          db.User.findOne({address : req.body.address}).exec(function(err,user2){
             var query = {'email' : req.body.beforeEmail}  
             db.User.updateOne(query, data, function (err, user3){
