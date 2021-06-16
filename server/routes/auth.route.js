@@ -183,16 +183,20 @@ function metaUserProfile(req, res) {
       } else {;
         var query = {'email' : req.body.beforeEmail}             
       }
-
-      db.User.updateOne(query, data, function (err, user3){
-        if (err) {
-          res.json({err, err});
-        } else {
-            db.User.findOne({address : req.body.address}).exec(function(err,user){
-            res.json({user, user}) ;	
-          })
-        }
-      })
+      if (user1 == null || user1=="undefined" || user1=="" || req.body.beforeEmail == req.body.email){  
+        db.User.updateOne(query, data, function (err, user3){
+          if (err) {
+            res.json({err, err});
+          } else {
+              db.User.findOne({address : req.body.address}).exec(function(err,user){
+              res.json({user, user}) ;	
+            })
+          }
+        })
+      } else {
+        user={user: "222"};
+        res.json({user, user});
+      }
     } else {      
       if (user1 == null || user1=="undefined" || user1==""){  
          db.User.findOne({address : req.body.address}).exec(function(err,user2){
